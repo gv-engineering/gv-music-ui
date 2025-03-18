@@ -1,3 +1,7 @@
+<script setup>
+import VolumeSlider from "@/components/common/VolumeSlider.vue";
+</script>
+
 <template>
   <div class="player container-fluid fixed-bottom">
     <div class="d-flex justify-content-between align-items-center">
@@ -9,16 +13,8 @@
         <audio id="audio" src="http://62.60.230.20:8000/v1/govno_music/stream/c7fef3a3-f31e-4279-9467-fe6a55859f07/"></audio>
       </div>
 
-      <div class="position-absolute end-0 pe-3">
-        <input
-            id="volume-slider"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value="1"
-        >
-      </div>
+      <VolumeSlider></VolumeSlider>
+
     </div>
   </div>
 </template>
@@ -45,6 +41,3 @@
   cursor: pointer;
 }
 </style>
-<script setup lang="ts">
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-</script>

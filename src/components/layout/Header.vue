@@ -1,9 +1,9 @@
 <template>
   <header>
     <div class="navbar container-fluid d-flex justify-content-center align-items-center fixed-top">
-      <a class="p-2" href="#">Вся музыка</a>
-      <a class="p-2" href="#">Любимые</a>
-      <a class="p-2" href="#">Загрузить</a>
+      <router-link class="p-2" to="/">Главная</router-link>
+      <router-link class="p-2" to="/favorite">Любимые треки</router-link>
+      <router-link class="p-2" to="/upload">Опубликовать трек</router-link>
 
       <div class="ms-auto">
         <a class="p-2" href="#">Войти</a>
