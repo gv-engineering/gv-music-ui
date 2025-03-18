@@ -14,11 +14,6 @@
 </template>
 
 <style scoped>
-* {
-  padding: 0;
-  margin: 0;
-}
-
 .navbar {
   background-color: #1E1E1E;
 }
@@ -33,6 +28,4 @@
   color: #FF4081;
   transition: all ease .4s;
 }
-
-
 </style>
