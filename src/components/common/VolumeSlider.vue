@@ -56,4 +56,8 @@
   border: none;
 }
 
+#volume-slider::-moz-range-thumb:hover {
+  background: #db2763;
+  transform: scale(1.1);
+}
 </style>

@@ -1,5 +1,9 @@
 <script setup>
 import VolumeSlider from "@/components/common/VolumeSlider.vue";
+
+import { useIsDesktop } from "@/composables/useIsDesktop";
+
+const { isDesktop } = useIsDesktop();
 </script>
 
 <template>
@@ -13,7 +17,7 @@ import VolumeSlider from "@/components/common/VolumeSlider.vue";
         <audio id="audio" src="http://62.60.230.20:8000/v1/govno_music/stream/c7fef3a3-f31e-4279-9467-fe6a55859f07/"></audio>
       </div>
 
-      <VolumeSlider></VolumeSlider>
+      <VolumeSlider v-if="isDesktop"></VolumeSlider>
 
     </div>
   </div>

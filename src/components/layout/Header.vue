@@ -3,7 +3,7 @@
     <div class="navbar container-fluid d-flex justify-content-center align-items-center fixed-top">
       <router-link class="p-2" to="/">Главная</router-link>
       <router-link class="p-2" to="/favorite">Любимые треки</router-link>
-      <router-link class="p-2" to="/upload">Опубликовать трек</router-link>
+      <router-link class="p-2" to="/upload">Публикация треков</router-link>
 
       <div class="ms-auto">
         <a class="p-2" href="#">Войти</a>
@@ -27,5 +27,9 @@
   transform: translate(0px, 1px);
   color: #FF4081;
   transition: all ease .4s;
+}
+
+.active-link {
+  color: #FF4081;
 }
 </style>

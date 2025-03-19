@@ -1,6 +1,5 @@
 main {
     background-color: #121212;
-
 }
 
 .h-photo {
@@ -17,10 +16,3 @@ main {
     height: 50px;
 }
 
-.author {
-    color: #A0A0A0;
-}
-
-.list-track:hover {
-    background-color: #1E1E1E;
-}

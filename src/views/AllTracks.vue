@@ -1,5 +1,6 @@
 <script setup>
 import allTracksSvg from '@/assets/images/alltracks.svg';
+import ListTracks from "@/components/common/ListTracks.vue";
 </script>
 
 <template>
@@ -9,7 +10,7 @@ import allTracksSvg from '@/assets/images/alltracks.svg';
       <h2 class="list-h m-2 ">Вся музыка сервиса</h2>
     </div>
 
-    <div id="track-list"></div>
+    <ListTracks/>
   </main>
 </template>
 
