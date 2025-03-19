@@ -3,15 +3,14 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import PlugImg from "@/assets/images/plug.png";
 import LikeBtn from "@/components/common/LikeBtn.vue";
-import Player from "@/components/layout/Player.vue";
+
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const tracks = ref([]);
-const selectedTrack = ref(null);
 
 const fetchTracks = async () => {
   try {
-    const response = await axios.get(apiUrl + "/list");
+    const response = await axios.get(apiUrl + "/tracks");
     tracks.value = response.data.tracks;
   } catch (error) {
     console.error('Ошибка при загрузки треков:', error);
@@ -25,19 +24,18 @@ onMounted(() => {
 
 <template>
   <div class="list-tracks">
-    <div v-for="track in tracks" :key="track.id" @click="selectedTrack = track" class="list-tracks-item d-flex align-items-center px-2 rounded mt-1">
+    <div v-for="track in tracks" :key="track.id" class="list-tracks-item d-flex align-items-center px-2 rounded mt-1">
       <img class="list-photo rounded shadow" :src="PlugImg" alt="PlugImg">
       <div class="track-info">
-        <h4 class="list-h m-2">{{ track.name }}</h4>
-        <p class="author list-h m-2">{{ track.author }}</p>
+        <h4 class="list-h m-2">{{ track.title }}</h4>
+        <p class="author list-h m-2">{{ track.artist }}</p>
       </div>
       <div class="ms-auto d-flex align-items-center">
-        <p class="author list-h m-2 ">{{ track.time }}</p>
+        <p class="author list-h m-2 ">{{ track.duration }}</p>
         <LikeBtn></LikeBtn>
       </div>
     </div>
 
-    <Player :track="selectedTrack" />
   </div>
 </template>
 

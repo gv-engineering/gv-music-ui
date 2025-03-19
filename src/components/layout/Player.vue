@@ -1,32 +1,13 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, } from "vue";
 import VolumeSlider from "@/components/common/VolumeSlider.vue";
 import { useIsDesktop } from "@/composables/useIsDesktop";
 
 
-const props = defineProps( {
-  track: {
-    type: Object,
-    default: null
-  }
-});
-
-
-
 const { isDesktop } = useIsDesktop();
-const apiUrl = import.meta.env.VITE_API_URL;
+// const apiUrl = import.meta.env.VITE_API_URL;
 
 const streamUrl = ref("");
-
-watch(() => props.track, () => {
-  if (props.track) {
-    streamUrl.value = apiUrl + "/stream/" + props.track.id;
-  }
-}, {immediate: true});
-
-
-
-
 </script>
 
 <template>
