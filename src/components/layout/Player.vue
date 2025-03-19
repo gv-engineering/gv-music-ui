@@ -1,9 +1,32 @@
 <script setup>
+import { ref, watch } from "vue";
 import VolumeSlider from "@/components/common/VolumeSlider.vue";
-
 import { useIsDesktop } from "@/composables/useIsDesktop";
 
+
+const props = defineProps( {
+  track: {
+    type: Object,
+    default: null
+  }
+});
+
+
+
 const { isDesktop } = useIsDesktop();
+const apiUrl = import.meta.env.VITE_API_URL;
+
+const streamUrl = ref("");
+
+watch(() => props.track, () => {
+  if (props.track) {
+    streamUrl.value = apiUrl + "stream/" + props.track.id;
+  }
+}, {immediate: true});
+
+
+
+
 </script>
 
 <template>
@@ -14,7 +37,7 @@ const { isDesktop } = useIsDesktop();
         <font-awesome-icon :icon="['fas', 'fa-play']" class="play-btn p-3"></font-awesome-icon>
         <font-awesome-icon :icon="['fas', 'fa-forward']" class="next-btn player-btn p-3"></font-awesome-icon>
 
-        <audio id="audio" src="http://62.60.230.20:8000/v1/govno_music/stream/c7fef3a3-f31e-4279-9467-fe6a55859f07/"></audio>
+        <audio id="audio" :src="streamUrl" controls></audio>
       </div>
 
       <VolumeSlider v-if="isDesktop"></VolumeSlider>
