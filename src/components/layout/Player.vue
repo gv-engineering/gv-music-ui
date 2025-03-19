@@ -20,7 +20,7 @@ const streamUrl = ref("");
 
 watch(() => props.track, () => {
   if (props.track) {
-    streamUrl.value = apiUrl + "stream/" + props.track.id;
+    streamUrl.value = apiUrl + "/stream/" + props.track.id;
   }
 }, {immediate: true});
 

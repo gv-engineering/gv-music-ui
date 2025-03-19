@@ -11,7 +11,7 @@ const selectedTrack = ref(null);
 
 const fetchTracks = async () => {
   try {
-    const response = await axios.get(apiUrl + "list");
+    const response = await axios.get(apiUrl + "/list");
     tracks.value = response.data.tracks;
   } catch (error) {
     console.error('Ошибка при загрузки треков:', error);
