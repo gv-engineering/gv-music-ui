@@ -1,6 +1,7 @@
 <script setup>
 import PlugImg from '@/assets/images/plug.png'
 import ListTracks from "@/components/common/ListTracks.vue";
+import UploadTrackForm from "@/components/common/UploadTrackForm.vue";
 </script>
 
 <template>
@@ -10,11 +11,7 @@ import ListTracks from "@/components/common/ListTracks.vue";
       <h2 class="list-h m-2 ">Раздел публикации треков</h2>
     </div>
 
-    <form class="d-flex flex-column">
-      <h4 class="color-white m-2">Форма Публикации</h4>
-      <input class=" color-white m-2" type="file">
-      <button class="w-25 m-2" type="submit">Загрузить</button>
-    </form>
+    <UploadTrackForm></UploadTrackForm>
 
     <div class="d-flex border-bottom border-dark border-2"/>
 
