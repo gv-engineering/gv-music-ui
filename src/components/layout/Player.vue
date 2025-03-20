@@ -1,13 +1,13 @@
 <script setup>
-import { ref, } from "vue";
 import VolumeSlider from "@/components/common/VolumeSlider.vue";
 import { useIsDesktop } from "@/composables/useIsDesktop";
+import { useCurrentTrackStore } from "@/stores/CurrentTrackStore";
+import {storeToRefs} from "pinia";
 
 
 const { isDesktop } = useIsDesktop();
-// const apiUrl = import.meta.env.VITE_API_URL;
-
-const streamUrl = ref("");
+const currentTrackStore = useCurrentTrackStore();
+const { currentTrack, isPlaying } = storeToRefs(currentTrackStore);
 </script>
 
 <template>
@@ -15,10 +15,13 @@ const streamUrl = ref("");
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center flex-grow-1 justify-content-center">
         <font-awesome-icon :icon="['fas', 'fa-backward']" class="prev-btn player-btn p-3"></font-awesome-icon>
-        <font-awesome-icon :icon="['fas', 'fa-play']" class="play-btn p-3"></font-awesome-icon>
+        <font-awesome-icon
+            :icon="['fas', 'fa-play']"
+            class="play-btn p-3"
+        />
         <font-awesome-icon :icon="['fas', 'fa-forward']" class="next-btn player-btn p-3"></font-awesome-icon>
 
-        <audio id="audio" :src="streamUrl" controls></audio>
+        <audio id="audio" v-if="currentTrack" :src="currentTrack.url" controls></audio>
       </div>
 
       <VolumeSlider v-if="isDesktop"></VolumeSlider>
