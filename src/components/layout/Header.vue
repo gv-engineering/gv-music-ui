@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { RouterLink } from 'vue-router';
+
+</script>
+
 <template>
   <header>
     <div class="navbar container-fluid d-flex justify-content-center align-items-center fixed-top">
@@ -6,7 +11,7 @@
       <router-link class="p-2" to="/upload">Публикация треков</router-link>
 
       <div class="ms-auto">
-        <a class="p-2" href="#">Войти</a>
+        <RouterLink class="p-2" to="/login">Войти</RouterLink>
         <a class="p-2" href="#">Регистрация</a>
       </div>
     </div>
