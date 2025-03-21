@@ -14,14 +14,15 @@ const audioRef = ref(null);
 const currentTime = ref(0);
 const currentTimePerc = ref(0);
 
-
+// Обновляет текущее время проигрывания трека
 const updateCurrentTime = () => {
-  if (audioRef.value) {
+  if (audioRef.value && !isNaN(audioRef.value.duration)) {
     currentTime.value = audioRef.value.currentTime;
-    currentTimePerc.value = Math.min((currentTime.value / audioRef.value.duration) * 100);
+    currentTimePerc.value = Math.min((currentTime.value / audioRef.value.duration) * 100, 100);
   }
-}
+};
 
+// Включает или выключает воспроизведение трека
 const togglePlaying = () => {
   if (isPlaying.value) {
     currentTrackStore.pauseTrack();
@@ -32,6 +33,7 @@ const togglePlaying = () => {
   }
 };
 
+// Кнопка назад
 const toggleBackward = () => {
   if (audioRef.value) {
     console.log(audioRef.value.duration);
@@ -49,19 +51,33 @@ watch(currentTrack, () => {
   });
 });
 
-
+// Прослушивание события изменения громкости из глобального хранилища
 watch(volume, (newValue) => {
   if (audioRef.value && newValue >= 0 && newValue <= 1) {
     audioRef.value.volume = newValue;
   }
 });
 
+// Прослушивание изменения воспроизводимого трека и присваивание ему установленной громкости из глобального хранилища
 watch(audioRef, (newValue) => {
   if (newValue && volume.value >= 0 && volume.value <= 1) {
     newValue.volume = volume.value;
   }
 });
 
+// Функционал изменения точки воспроизведения трека
+const seekTrack = (event) => {
+  if (audioRef.value && currentTrack.value) {
+    const progressBar = event.currentTarget; // Элемент прогресс-бара
+    const rect = progressBar.getBoundingClientRect(); // Позиция и размеры прогресс-бара
+    const clickX = event.clientX - rect.left; // Позиция клика относительно начала прогресс-бара
+    const width = rect.width; // Полная ширина прогресс-бара
+    const seekTime = (clickX / width) * audioRef.value.duration; // Вычисляем новую позицию в секундах
+
+    audioRef.value.currentTime = seekTime; // Устанавливаем новое время трека
+    updateCurrentTime(); // Обновляем прогресс
+  }
+};
 </script>
 
 <template>
@@ -104,7 +120,14 @@ watch(audioRef, (newValue) => {
 
     </div>
     <div class="">
-      <div class="progress rounded-0" role="progressbar" :aria-valuenow="{ currentTimePerc }" aria-valuemin="0" aria-valuemax="100">
+      <div 
+        class="progress rounded-0"
+        role="progressbar" 
+        :aria-valuenow="currentTimePerc" 
+        aria-valuemin="0" 
+        aria-valuemax="100"
+        @click="seekTrack"
+      >
         <div class="progress-bar" :style="{ width: currentTimePerc + '%' }"></div>
       </div>
     </div>
@@ -139,6 +162,7 @@ watch(audioRef, (newValue) => {
 
 .progress {
   background-color: #121212;
+  cursor: pointer;
 }
 .progress-bar {
   transition: width 0.5s linear; /* Плавное изменение ширины за 0.1 секунды */
