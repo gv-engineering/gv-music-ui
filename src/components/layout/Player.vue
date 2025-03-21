@@ -49,6 +49,16 @@ watch(audioRef, (newValue) => {
   <div class="player container-fluid fixed-bottom">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center flex-grow-1 justify-content-center">
+        <div v-if="currentTrack" class="position-absolute start-0 ps-3 d-flex align-items-center">
+          <img
+              class="list-photo rounded shadow"
+              :src="currentTrack.cover_url" alt=""
+          >
+          <div class="track-info" v-if="isDesktop">
+            <h4 class="list-h m-2">{{ currentTrack.title }}</h4>
+            <p class="author list-h m-2">{{ currentTrack.artist }}</p>
+          </div>
+        </div>
         <font-awesome-icon
             :icon="['fas', 'fa-backward']"
             class="prev-btn player-btn p-3"
@@ -96,5 +106,9 @@ watch(audioRef, (newValue) => {
   background-color: #121212;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.author {
+  color: #A0A0A0;
 }
 </style>
