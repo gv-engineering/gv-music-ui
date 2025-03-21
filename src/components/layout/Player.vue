@@ -2,8 +2,8 @@
 import VolumeSlider from "@/components/common/VolumeSlider.vue";
 import { useIsDesktop } from "@/composables/useIsDesktop";
 import { usePlayerStore } from "@/stores/PlayerStore.js";
-import {storeToRefs} from "pinia";
-import {nextTick, ref, watch} from "vue";
+import { storeToRefs } from "pinia";
+import { nextTick, ref, watch } from "vue";
 
 
 const { isDesktop } = useIsDesktop();
@@ -11,6 +11,16 @@ const currentTrackStore = usePlayerStore();
 const { currentTrack, isPlaying, volume } = storeToRefs(currentTrackStore);
 
 const audioRef = ref(null);
+const currentTime = ref(0);
+const currentTimePerc = ref(0);
+
+
+const updateCurrentTime = () => {
+  if (audioRef.value) {
+    currentTime.value = audioRef.value.currentTime;
+    currentTimePerc.value = Math.min((currentTime.value / audioRef.value.duration) * 100);
+  }
+}
 
 const togglePlaying = () => {
   if (isPlaying.value) {
@@ -22,6 +32,13 @@ const togglePlaying = () => {
   }
 };
 
+const toggleBackward = () => {
+  if (audioRef.value) {
+    console.log(audioRef.value.duration);
+  }
+}
+
+
 // Автовоспроизведение при выборе трека
 watch(currentTrack, () => {
   nextTick(() => {
@@ -31,6 +48,7 @@ watch(currentTrack, () => {
     }
   });
 });
+
 
 watch(volume, (newValue) => {
   if (audioRef.value && newValue >= 0 && newValue <= 1) {
@@ -43,10 +61,11 @@ watch(audioRef, (newValue) => {
     newValue.volume = volume.value;
   }
 });
+
 </script>
 
 <template>
-  <div class="player container-fluid fixed-bottom">
+  <div class="player container-fluid fixed-bottom p-0">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center flex-grow-1 justify-content-center">
         <div v-if="currentTrack" class="position-absolute start-0 ps-3 d-flex align-items-center">
@@ -62,6 +81,7 @@ watch(audioRef, (newValue) => {
         <font-awesome-icon
             :icon="['fas', 'fa-backward']"
             class="prev-btn player-btn p-3"
+            @click="toggleBackward"
         />
         <font-awesome-icon
             :icon="['fas', isPlaying ? 'fa-pause' : 'fa-play']"
@@ -72,16 +92,21 @@ watch(audioRef, (newValue) => {
             :icon="['fas', 'fa-forward']"
             class="next-btn player-btn p-3"
         />
-
         <audio
             ref="audioRef"
             v-if="currentTrack"
             :src="currentTrack.url"
+            @timeupdate="updateCurrentTime"
         />
       </div>
 
       <VolumeSlider v-if="isDesktop"></VolumeSlider>
 
+    </div>
+    <div class="">
+      <div class="progress rounded-0" role="progressbar" :aria-valuenow="{ currentTimePerc }" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" :style="{ width: currentTimePerc + '%' }"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -110,5 +135,14 @@ watch(audioRef, (newValue) => {
 
 .author {
   color: #A0A0A0;
+}
+
+.progress {
+  background-color: #121212;
+}
+.progress-bar {
+  transition: width 0.5s linear; /* Плавное изменение ширины за 0.1 секунды */
+  background-color: #FF4081;
+
 }
 </style>
