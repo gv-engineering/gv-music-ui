@@ -1,17 +1,25 @@
 import { defineStore } from 'pinia'
 
-export const useCurrentTrackStore = defineStore('currentTrackStore', {
+export const usePlayerStore = defineStore('currentTrackStore', {
     state: () => ({
         currentTrack: null,
         isPlaying: false,
+        volume: 1,
     }),
     actions: {
-        playTrack(track) {
+        uploadTrack(track) {
             this.currentTrack = track;
+        },
+        playTrack() {
             this.isPlaying = true;
         },
         pauseTrack() {
             this.isPlaying = false;
+        },
+        setVolume(newVolume) {
+            if (newVolume >= 0 && newVolume <= 1) {
+                this.volume = newVolume;
+            }
         }
     },
 });

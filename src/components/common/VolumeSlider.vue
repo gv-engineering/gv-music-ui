@@ -1,5 +1,9 @@
 <script setup>
+import {usePlayerStore} from "@/stores/PlayerStore.js";
+import { storeToRefs} from "pinia";
 
+const currentTrackStore = usePlayerStore();
+const { volume } = storeToRefs(currentTrackStore);
 </script>
 
 <template>
@@ -12,6 +16,7 @@
         max="1"
         step="0.01"
         value="1"
+        v-model="volume"
     >
   </div>
 </template>

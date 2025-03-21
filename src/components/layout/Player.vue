@@ -1,27 +1,73 @@
 <script setup>
 import VolumeSlider from "@/components/common/VolumeSlider.vue";
 import { useIsDesktop } from "@/composables/useIsDesktop";
-import { useCurrentTrackStore } from "@/stores/CurrentTrackStore";
+import { usePlayerStore } from "@/stores/PlayerStore.js";
 import {storeToRefs} from "pinia";
+import {nextTick, ref, watch} from "vue";
 
 
 const { isDesktop } = useIsDesktop();
-const currentTrackStore = useCurrentTrackStore();
-const { currentTrack, isPlaying } = storeToRefs(currentTrackStore);
+const currentTrackStore = usePlayerStore();
+const { currentTrack, isPlaying, volume } = storeToRefs(currentTrackStore);
+
+const audioRef = ref(null);
+
+const togglePlaying = () => {
+  if (isPlaying.value) {
+    currentTrackStore.pauseTrack();
+    audioRef.value.pause();
+  } else {
+    currentTrackStore.playTrack();
+    audioRef.value.play();
+  }
+};
+
+// Автовоспроизведение при выборе трека
+watch(currentTrack, () => {
+  nextTick(() => {
+    if (audioRef.value) {
+      audioRef.value.play();
+      currentTrackStore.playTrack();
+    }
+  });
+});
+
+watch(volume, (newValue) => {
+  if (audioRef.value && newValue >= 0 && newValue <= 1) {
+    audioRef.value.volume = newValue;
+  }
+});
+
+watch(audioRef, (newValue) => {
+  if (newValue && volume.value >= 0 && volume.value <= 1) {
+    newValue.volume = volume.value;
+  }
+});
 </script>
 
 <template>
   <div class="player container-fluid fixed-bottom">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center flex-grow-1 justify-content-center">
-        <font-awesome-icon :icon="['fas', 'fa-backward']" class="prev-btn player-btn p-3"></font-awesome-icon>
         <font-awesome-icon
-            :icon="['fas', 'fa-play']"
-            class="play-btn p-3"
+            :icon="['fas', 'fa-backward']"
+            class="prev-btn player-btn p-3"
         />
-        <font-awesome-icon :icon="['fas', 'fa-forward']" class="next-btn player-btn p-3"></font-awesome-icon>
+        <font-awesome-icon
+            :icon="['fas', isPlaying ? 'fa-pause' : 'fa-play']"
+            class="play-btn p-3"
+            @click="togglePlaying"
+        />
+        <font-awesome-icon
+            :icon="['fas', 'fa-forward']"
+            class="next-btn player-btn p-3"
+        />
 
-        <audio id="audio" v-if="currentTrack" :src="currentTrack.url" controls></audio>
+        <audio
+            ref="audioRef"
+            v-if="currentTrack"
+            :src="currentTrack.url"
+        />
       </div>
 
       <VolumeSlider v-if="isDesktop"></VolumeSlider>

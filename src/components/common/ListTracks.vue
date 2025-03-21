@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import LikeBtn from "@/components/common/LikeBtn.vue";
-import { useCurrentTrackStore } from '@/stores/CurrentTrackStore';
+import { usePlayerStore } from '@/stores/PlayerStore.js';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const tracks = ref([]);
@@ -20,10 +20,10 @@ onMounted(() => {
   fetchTracks();
 })
 
-const currentTrackStore = useCurrentTrackStore();
+const currentTrackStore = usePlayerStore();
 
 const selectTrack = (track) => {
-  currentTrackStore.playTrack(track);
+  currentTrackStore.uploadTrack(track);
 };
 
 </script>
@@ -31,7 +31,7 @@ const selectTrack = (track) => {
 <template>
   <div class="list-tracks">
     <div v-for="track in tracks" :key="track.id" @click="selectTrack(track)" class="list-tracks-item d-flex align-items-center px-2 rounded mt-1">
-      <img class="list-photo rounded shadow" :src="track.cover_url" alt="PlugImg">
+      <img class="list-photo rounded shadow" :src="track.cover_url" alt="">
       <div class="track-info">
         <h4 class="list-h m-2">{{ track.title }}</h4>
         <p class="author list-h m-2">{{ track.artist }}</p>
