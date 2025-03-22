@@ -5,6 +5,7 @@ import { storeToRefs } from "pinia";
 
 const playerStore = usePlayerStore();
 const { currentPlayTimePercents, audioRef, currentTrack } = storeToRefs(playerStore);
+const { updatePlayTime } = playerStore;
 
 const seekTrack = (event) => {
     if (audioRef.value && currentTrack.value) {
@@ -15,7 +16,7 @@ const seekTrack = (event) => {
       const seekTime = (clickX / width) * audioRef.value.duration; // Вычисляем новую позицию в секундах
   
       audioRef.value.currentTime = seekTime; // Устанавливаем новое время трека
-      updateCurrentTime(); // Обновляем прогресс
+      updatePlayTime(); // Обновляем прогресс
     }
   };
 </script>
