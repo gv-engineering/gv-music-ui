@@ -1,9 +1,8 @@
 <script setup>
 import { usePlayerStore } from "@/stores/PlayerStore.js";
-import { storeToRefs } from "pinia";
+
 
 const PlayerStore = usePlayerStore();
-const { volume } = storeToRefs(PlayerStore);
 </script>
 
 <template>
@@ -16,7 +15,7 @@ const { volume } = storeToRefs(PlayerStore);
         max="1"
         step="0.01"
         value="1"
-        v-model="volume"
+        @input="PlayerStore.setVolume($event.target.value)"
     >
   </div>
 </template>
