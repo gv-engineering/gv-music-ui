@@ -11,8 +11,8 @@ import PlayerTrackProgress from "../common/PlayerTrackProgress.vue";
 const { isDesktop } = useIsDesktop();
 
 const playerStore = usePlayerStore();
-const { currentTrack, isPlaying, volume, audioRef } = storeToRefs(playerStore);
-const { uploadTrack, playTrack, pauseTrack, setVolume } = playerStore;
+const { currentTrack, isPlaying, audioRef } = storeToRefs(playerStore);
+const { updatePlayTime, playTrack, pauseTrack } = playerStore;
 
 // Включение или выключение проигрывания трека
 const togglePlaying = () => {
@@ -23,6 +23,11 @@ const togglePlaying = () => {
   }
 };
 
+// Снимает значение текущего времени воспроизведения с реактива <audio>
+const onTimeUpdate = () => {
+  updatePlayTime(audioRef.value.currentTime);
+};
+
 // Автовоспроизведение при выборе трека
 watch(currentTrack, () => {
   nextTick(() => {
@@ -31,6 +36,8 @@ watch(currentTrack, () => {
     }
   });
 });
+
+
 </script>
 
 <template>
@@ -55,6 +62,7 @@ watch(currentTrack, () => {
             ref="audioRef"
             v-if="currentTrack"
             :src="currentTrack.url"
+            @timeupdate="onTimeUpdate"
         />
       </div>
 
@@ -62,7 +70,7 @@ watch(currentTrack, () => {
 
     </div>
     <div>
-      <!-- <PlayerTrackProgress/> -->
+      <PlayerTrackProgress/>
     </div>
   </div>
 </template>

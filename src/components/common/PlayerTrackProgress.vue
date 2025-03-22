@@ -1,28 +1,37 @@
 <script setup>
-
 import { usePlayerStore } from "@/stores/PlayerStore";
 import { storeToRefs } from "pinia";
 
 
-
-const { isDesktop } = useIsDesktop();
-
 const playerStore = usePlayerStore();
-const { currentTrack, isPlaying, volume, audioRef } = storeToRefs(playerStore);
-const { uploadTrack, playTrack, pauseTrack, setVolume } = playerStore;
+const { currentPlayTimePercents, audioRef, currentTrack } = storeToRefs(playerStore);
+
+const seekTrack = (event) => {
+    if (audioRef.value && currentTrack.value) {
+      const progressBar = event.currentTarget; // Элемент прогресс-бара
+      const rect = progressBar.getBoundingClientRect(); // Позиция и размеры прогресс-бара
+      const clickX = event.clientX - rect.left; // Позиция клика относительно начала прогресс-бара
+      const width = rect.width; // Полная ширина прогресс-бара
+      const seekTime = (clickX / width) * audioRef.value.duration; // Вычисляем новую позицию в секундах
+  
+      audioRef.value.currentTime = seekTime; // Устанавливаем новое время трека
+      updateCurrentTime(); // Обновляем прогресс
+    }
+  };
 </script>
 
 <template>
     <div 
         class="progress rounded-0"
         role="progressbar" 
-        :aria-valuenow="currentTimePerc" 
+        :aria-valuenow="currentPlayTimePercents" 
         aria-valuemin="0" 
         aria-valuemax="100"
         @click="seekTrack"
     >
-        <div class="progress-bar" :style="{ width: currentTimePerc + '%' }"></div>
+        <div class="progress-bar" :style="{ width: currentPlayTimePercents + '%' }"></div>
     </div>
+    
 </template>
 
 <style scoped>

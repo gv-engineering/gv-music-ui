@@ -7,6 +7,9 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const isPlaying = ref(false);
     const volume = ref(1);
     const audioRef = ref(null);
+    const currentPlayTime = ref(0);
+    const currentPlayTimePercents = ref(0);
+    const trackDuration = ref(0);
 
     // Действия
     // Записывает выбранный пользователем трек 
@@ -43,15 +46,27 @@ export const usePlayerStore = defineStore('playerStore', () => {
         }
     };
 
+    const updatePlayTime = (time) => {
+        if (audioRef.value && !isNaN(audioRef.value.duration)) {
+            currentPlayTime.value = time;
+            trackDuration.value = audioRef.value.duration;
+            currentPlayTimePercents.value = Math.min((time / audioRef.value.duration) * 100, 100);
+        }
+    };
+
     // Возвращает состояние и действия
     return {
         currentTrack,
         isPlaying,
         volume,
         audioRef,
+        currentPlayTime,
+        currentPlayTimePercents,
+        trackDuration,
         uploadTrack,
         playTrack,
         pauseTrack,
         setVolume,
+        updatePlayTime,
     };
 });
