@@ -1,9 +1,9 @@
 <script setup>
-import {usePlayerStore} from "@/stores/PlayerStore.js";
-import { storeToRefs} from "pinia";
+import { usePlayerStore } from "@/stores/PlayerStore.js";
+import { storeToRefs } from "pinia";
 
-const currentTrackStore = usePlayerStore();
-const { volume } = storeToRefs(currentTrackStore);
+const PlayerStore = usePlayerStore();
+const { volume } = storeToRefs(PlayerStore);
 </script>
 
 <template>
