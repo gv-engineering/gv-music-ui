@@ -20,10 +20,10 @@ onMounted(() => {
   fetchTracks();
 })
 
-const currentTrackStore = usePlayerStore();
+const PlayerStore = usePlayerStore();
 
 const selectTrack = (track) => {
-  currentTrackStore.uploadTrack(track);
+  PlayerStore.uploadTrack(track);
 };
 
 </script>
