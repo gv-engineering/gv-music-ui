@@ -12,7 +12,7 @@ const { isDesktop } = useIsDesktop();
 
 const playerStore = usePlayerStore();
 const { currentTrack, isPlaying, audioRef } = storeToRefs(playerStore);
-const { updatePlayTime, playTrack, pauseTrack } = playerStore;
+const { updatePlayTime, playPrevTrack, playTrack, playNextTrack, pauseTrack } = playerStore;
 
 // Включение или выключение проигрывания трека
 const togglePlaying = () => {
@@ -26,9 +26,10 @@ const togglePlaying = () => {
 // Снимает значение текущего времени воспроизведения с реактива <audio>
 const onTimeUpdate = () => {
   updatePlayTime(audioRef.value.currentTime);
+
 };
 
-// Автовоспроизведение при выборе трека
+// Авто воспроизведение при выборе трека
 watch(currentTrack, () => {
   nextTick(() => {
     if (audioRef.value) {
@@ -48,6 +49,7 @@ watch(currentTrack, () => {
         <font-awesome-icon
             :icon="['fas', 'fa-backward']"
             class="prev-btn player-btn p-3"
+            @click="playPrevTrack"
         />
         <font-awesome-icon
             :icon="['fas', isPlaying ? 'fa-pause' : 'fa-play']"
@@ -57,7 +59,11 @@ watch(currentTrack, () => {
         <font-awesome-icon
             :icon="['fas', 'fa-forward']"
             class="next-btn player-btn p-3"
+            @click="playNextTrack"
         />
+<!--        <button class="btn btn-primary">Повтор</button>-->
+<!--        <button class="btn btn-primary">Один раз</button>-->
+<!--        <button class="btn btn-primary">Подборки</button>-->
         <audio
             ref="audioRef"
             v-if="currentTrack"
@@ -95,9 +101,5 @@ watch(currentTrack, () => {
   background-color: #121212;
   border-radius: 50%;
   cursor: pointer;
-}
-
-.author {
-  color: #A0A0A0;
 }
 </style>

@@ -22,15 +22,15 @@ onMounted(() => {
 
 const PlayerStore = usePlayerStore();
 
-const selectTrack = (track) => {
-  PlayerStore.uploadTrack(track);
+const selectTrack = (track, tracks) => {
+  PlayerStore.uploadTrack(track, tracks);
 };
 
 </script>
 
 <template>
   <div class="list-tracks">
-    <div v-for="track in tracks" :key="track.id" @click="selectTrack(track)" class="list-tracks-item d-flex align-items-center px-2 rounded mt-1">
+    <div v-for="track in tracks" :key="track.id" @click="selectTrack(track, tracks)" class="list-tracks-item d-flex align-items-center px-2 rounded mt-1">
       <img class="list-photo rounded shadow" :src="track.cover_url" alt="">
       <div class="track-info">
         <h4 class="list-h m-2">{{ track.title }}</h4>

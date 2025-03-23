@@ -24,5 +24,7 @@ const { currentTrack } = storeToRefs(playerStore);
 </template>
 
 <style scoped>
-
+.author {
+  color: #A0A0A0;
+}
 </style>
