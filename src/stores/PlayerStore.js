@@ -11,13 +11,14 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const currentPlayTimePercents = ref(0);
     const trackDuration = ref(0);
     const trackList = ref([]);
+    const repeatList = ref(false);
+    const repeatTrack = ref(false);
 
     // Действия
     /*
     Записывает выбранный пользователем трек
     формирует список треков
      */
-
     const uploadTrack = (track, tracks) => {
         currentTrack.value = track;
         trackList.value = tracks;
