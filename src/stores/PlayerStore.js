@@ -11,8 +11,8 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const currentPlayTimePercents = ref(0);
     const trackDuration = ref(0);
     const trackList = ref([]);
-    const repeatList = ref(false);
-    const repeatTrack = ref(false);
+    const repeatStatus = ref("none");
+    const shuffleStatus = ref(false);
 
     // Действия
     /*
@@ -126,6 +126,22 @@ export const usePlayerStore = defineStore('playerStore', () => {
         }
     };
 
+    // Меняет режимы повтора
+    const toggleRepeat = () => {
+        if (repeatStatus.value === "none") { // Если выключен любой повтор включить повтор списка
+            repeatStatus.value = "list";
+        } else if (repeatStatus.value === "list") { //Если включен повтор очереди включить повтор трека
+            repeatStatus.value = "track";
+        } else { // Если включен повтор трека отключить повтор
+            repeatStatus.value = "none";
+        }
+    };
+
+    // Меняет режим shuffle
+    const toggleShuffle = () => {
+        shuffleStatus.value = !shuffleStatus.value;
+    };
+
     // Возвращает состояние и действия
     return {
         currentTrack,
@@ -135,6 +151,8 @@ export const usePlayerStore = defineStore('playerStore', () => {
         currentPlayTime,
         currentPlayTimePercents,
         trackDuration,
+        repeatStatus,
+        shuffleStatus,
         uploadTrack,
         playPrevTrack,
         playTrack,
@@ -142,5 +160,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         pauseTrack,
         setVolume,
         updatePlayTime,
+        toggleRepeat,
+        toggleShuffle,
     };
 });
