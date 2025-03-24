@@ -49,21 +49,64 @@ export const usePlayerStore = defineStore('playerStore', () => {
     запускает следующий трек из очереди
     если трек в очереди последний - запускает первый
      */
-    const playNextTrack = () => {
-        if (currentTrack.value && audioRef.value) {
-            const currentIndex = trackList.value.indexOf(currentTrack.value);
-            let nextTrack;
+    const AutoNextTrack = () => {
+        if (!currentTrack.value && !audioRef.value) {
+            return;
+        }
+        
+        const currentIndex = trackList.value.indexOf(currentTrack.value);
+        let nextTrack;
 
-            if (currentIndex >= 0 && currentIndex < trackList.value.length - 1) {
+        if (currentIndex < 0) {
+            return;
+        };
+
+        if (repeatStatus.value === "list") {
+            if (currentIndex < trackList.value.length - 1) {
                 // Переход к следующему треку
                 nextTrack = trackList.value[currentIndex + 1];
             } else {
                 // Возврат к первому треку
                 nextTrack = trackList.value[0];
             }
+    
+        } else if (repeatStatus.value === "track") {
+            currentTrack.value = trackList.value[currentIndex];
+            setPlayTimeStart();
+            return;
 
-            currentTrack.value = nextTrack;
+        } else {
+            if (currentIndex < trackList.value.length - 1) {
+                nextTrack = trackList.value[currentIndex + 1];
+            } else {
+                pauseTrack();
+                return;
+            }
+        };
+        currentTrack.value = nextTrack;
+    };
+
+    const playNextTrack = () => {
+        if (!currentTrack.value && !audioRef.value) {
+            return;
         }
+        
+        const currentIndex = trackList.value.indexOf(currentTrack.value);
+        let nextTrack;
+
+        if (currentIndex < 0) {
+            return;
+        };
+
+        if (currentIndex < trackList.value.length - 1) {
+            // Переход к следующему треку
+            nextTrack = trackList.value[currentIndex + 1];
+        } else {
+            // Возврат к первому треку
+            nextTrack = trackList.value[0];
+        }
+
+        currentTrack.value = nextTrack;
     };
 
     /*
@@ -121,7 +164,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
             currentPlayTimePercents.value = Math.min((time / audioRef.value.duration) * 100, 100);
 
             if (currentPlayTimePercents.value === 100) {
-                playNextTrack();
+                AutoNextTrack();
             }
         }
     };

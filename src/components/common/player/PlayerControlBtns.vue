@@ -40,8 +40,7 @@ const currentRepeatSvg = computed(() => {
       v-html="shuffleSvg"
       :class="{ 'player-btn-active': shuffleStatus }"
       class="player-shuffle-svg p-3"
-  />
-
+  ></div>
   <font-awesome-icon
       :icon="['fas', 'fa-backward']"
       class="prev-btn player-btn p-3"
@@ -57,18 +56,15 @@ const currentRepeatSvg = computed(() => {
       class="next-btn player-btn p-3"
       @click="playNextTrack"
   />
-
   <div
       @click="toggleRepeat"
       v-html="currentRepeatSvg"
       :class="{ 'player-btn-active': isRepeatActive }"
       class="player-repeat-svg p-3"
-
-  />
+  ></div>
 </template>
 
 <style scoped>
-
 .play-btn {
   font-size: 25px;
   color: #FF4081;
@@ -89,7 +85,7 @@ const currentRepeatSvg = computed(() => {
 
 .player-repeat-svg,
 .player-shuffle-svg {
-  color: #FF4081;
+  color: #941b43;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,7 +100,6 @@ const currentRepeatSvg = computed(() => {
 .player-repeat-svg:hover,
 .player-shuffle-svg:hover {
   transition: all ease 0.3s;
-  color: #db2763;
   background-color: #121212;
   border-radius: 50%;
   cursor: pointer;
@@ -112,8 +107,6 @@ const currentRepeatSvg = computed(() => {
 
 .player-btn-active {
   transition: all ease 0.3s;
-  color: #db2763;
-  background-color: #121212;
-  border-radius: 50%;
+  color: #FF4081;
 }
 </style>
