@@ -5,9 +5,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faBackward, faPlay, faPause, faForward, faHeart, faVolumeLow } from '@fortawesome/free-solid-svg-icons'
+import { faBackward, faPlay, faPause, faForward, faHeart, faVolumeLow, faShuffle } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faBackward, faPlay, faPause, faForward, faHeart, faVolumeLow)
+library.add(faBackward, faPlay, faPause, faForward, faHeart, faVolumeLow, faShuffle)
 
 export default FontAwesomeIcon

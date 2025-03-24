@@ -1,5 +1,5 @@
 <script setup>
-import { usePlayerStore } from "@/stores/PlayerStore";
+import { usePlayerStore } from "@/stores/PlayerStore.js";
 import { storeToRefs } from "pinia";
 
 

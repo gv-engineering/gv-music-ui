@@ -1,32 +1,25 @@
 <script setup>
-import VolumeSlider from "@/components/common/VolumeSlider.vue";
-import PlayerTrackInfo from "../common/PlayerTrackInfo.vue";
+import PlayerVolumeSlider from "@/components/common/player/PlayerVolumeSlider.vue";
+import PlayerTrackInfo from "../common/player/PlayerTrackInfo.vue";
 import { usePlayerStore } from "@/stores/PlayerStore";
 import { useIsDesktop } from "@/composables/useIsDesktop";
 import { storeToRefs } from "pinia";
 import { watch, nextTick } from "vue";
-import PlayerTrackProgress from "../common/PlayerTrackProgress.vue";
+import PlayerTrackProgress from "../common/player/PlayerTrackProgress.vue";
+import PlayerControlBtns from "@/components/common/player/PlayerControlBtns.vue";
 
 
 const { isDesktop } = useIsDesktop();
 
 const playerStore = usePlayerStore();
-const { currentTrack, isPlaying, audioRef } = storeToRefs(playerStore);
-const { updatePlayTime, playPrevTrack, playTrack, playNextTrack, pauseTrack } = playerStore;
+const { currentTrack, audioRef } = storeToRefs(playerStore);
+const { updatePlayTime, playTrack } = playerStore;
 
-// Включение или выключение проигрывания трека
-const togglePlaying = () => {
-  if (isPlaying.value) {
-    pauseTrack();
-  } else {
-    playTrack();
-  }
-};
+
 
 // Снимает значение текущего времени воспроизведения с реактива <audio>
 const onTimeUpdate = () => {
   updatePlayTime(audioRef.value.currentTime);
-
 };
 
 // Авто воспроизведение при выборе трека
@@ -37,8 +30,6 @@ watch(currentTrack, () => {
     }
   });
 });
-
-
 </script>
 
 <template>
@@ -46,24 +37,7 @@ watch(currentTrack, () => {
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center flex-grow-1 justify-content-center">
         <PlayerTrackInfo/>
-        <font-awesome-icon
-            :icon="['fas', 'fa-backward']"
-            class="prev-btn player-btn p-3"
-            @click="playPrevTrack"
-        />
-        <font-awesome-icon
-            :icon="['fas', isPlaying ? 'fa-pause' : 'fa-play']"
-            class="play-btn p-3"
-            @click="togglePlaying"
-        />
-        <font-awesome-icon
-            :icon="['fas', 'fa-forward']"
-            class="next-btn player-btn p-3"
-            @click="playNextTrack"
-        />
-<!--        <button class="btn btn-primary">Повтор</button>-->
-<!--        <button class="btn btn-primary">Один раз</button>-->
-<!--        <button class="btn btn-primary">Подборки</button>-->
+        <PlayerControlBtns/>
         <audio
             ref="audioRef"
             v-if="currentTrack"
@@ -72,7 +46,7 @@ watch(currentTrack, () => {
         />
       </div>
 
-      <VolumeSlider v-if="isDesktop"></VolumeSlider>
+      <PlayerVolumeSlider v-if="isDesktop"></PlayerVolumeSlider>
 
     </div>
     <div>
@@ -86,20 +60,4 @@ watch(currentTrack, () => {
   background-color: #1E1E1E;
 }
 
-.play-btn {
-  font-size: 25px;
-  color: #FF4081;
-}
-
-.player-btn {
-  color: #FF4081;
-}
-
-.play-btn:hover, .player-btn:hover {
-  transition: all ease 0.3s;
-  color: #db2763;
-  background-color: #121212;
-  border-radius: 50%;
-  cursor: pointer;
-}
 </style>

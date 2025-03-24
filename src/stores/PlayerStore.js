@@ -11,13 +11,14 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const currentPlayTimePercents = ref(0);
     const trackDuration = ref(0);
     const trackList = ref([]);
+    const repeatStatus = ref("none");
+    const shuffleStatus = ref(false);
 
     // Действия
     /*
     Записывает выбранный пользователем трек
     формирует список треков
      */
-
     const uploadTrack = (track, tracks) => {
         currentTrack.value = track;
         trackList.value = tracks;
@@ -48,21 +49,64 @@ export const usePlayerStore = defineStore('playerStore', () => {
     запускает следующий трек из очереди
     если трек в очереди последний - запускает первый
      */
-    const playNextTrack = () => {
-        if (currentTrack.value && audioRef.value) {
-            const currentIndex = trackList.value.indexOf(currentTrack.value);
-            let nextTrack;
+    const AutoNextTrack = () => {
+        if (!currentTrack.value && !audioRef.value) {
+            return;
+        }
+        
+        const currentIndex = trackList.value.indexOf(currentTrack.value);
+        let nextTrack;
 
-            if (currentIndex >= 0 && currentIndex < trackList.value.length - 1) {
+        if (currentIndex < 0) {
+            return;
+        };
+
+        if (repeatStatus.value === "list") {
+            if (currentIndex < trackList.value.length - 1) {
                 // Переход к следующему треку
                 nextTrack = trackList.value[currentIndex + 1];
             } else {
                 // Возврат к первому треку
                 nextTrack = trackList.value[0];
             }
+    
+        } else if (repeatStatus.value === "track") {
+            currentTrack.value = trackList.value[currentIndex];
+            playTrack();
+            return;
 
-            currentTrack.value = nextTrack;
+        } else {
+            if (currentIndex < trackList.value.length - 1) {
+                nextTrack = trackList.value[currentIndex + 1];
+            } else {
+                pauseTrack();
+                return;
+            }
+        };
+        currentTrack.value = nextTrack;
+    };
+
+    const playNextTrack = () => {
+        if (!currentTrack.value && !audioRef.value) {
+            return;
         }
+        
+        const currentIndex = trackList.value.indexOf(currentTrack.value);
+        let nextTrack;
+
+        if (currentIndex < 0) {
+            return;
+        };
+
+        if (currentIndex < trackList.value.length - 1) {
+            // Переход к следующему треку
+            nextTrack = trackList.value[currentIndex + 1];
+        } else {
+            // Возврат к первому треку
+            nextTrack = trackList.value[0];
+        }
+
+        currentTrack.value = nextTrack;
     };
 
     /*
@@ -120,9 +164,25 @@ export const usePlayerStore = defineStore('playerStore', () => {
             currentPlayTimePercents.value = Math.min((time / audioRef.value.duration) * 100, 100);
 
             if (currentPlayTimePercents.value === 100) {
-                playNextTrack();
+                AutoNextTrack();
             }
         }
+    };
+
+    // Меняет режимы повтора
+    const toggleRepeat = () => {
+        if (repeatStatus.value === "none") { // Если выключен любой повтор включить повтор списка
+            repeatStatus.value = "list";
+        } else if (repeatStatus.value === "list") { //Если включен повтор очереди включить повтор трека
+            repeatStatus.value = "track";
+        } else { // Если включен повтор трека отключить повтор
+            repeatStatus.value = "none";
+        }
+    };
+
+    // Меняет режим shuffle
+    const toggleShuffle = () => {
+        shuffleStatus.value = !shuffleStatus.value;
     };
 
     // Возвращает состояние и действия
@@ -134,6 +194,8 @@ export const usePlayerStore = defineStore('playerStore', () => {
         currentPlayTime,
         currentPlayTimePercents,
         trackDuration,
+        repeatStatus,
+        shuffleStatus,
         uploadTrack,
         playPrevTrack,
         playTrack,
@@ -141,5 +203,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         pauseTrack,
         setVolume,
         updatePlayTime,
+        toggleRepeat,
+        toggleShuffle,
     };
 });

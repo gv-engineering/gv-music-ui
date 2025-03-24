@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import LikeBtn from "@/components/common/LikeBtn.vue";
+import LikeBtn from "@/components/common/tracks/LikeBtn.vue";
 import { usePlayerStore } from '@/stores/PlayerStore.js';
 
 const apiUrl = import.meta.env.VITE_API_URL;

@@ -1,7 +1,7 @@
 <script setup>
 import PlugImg from '@/assets/images/plug.png'
-import ListTracks from "@/components/common/ListTracks.vue";
-import UploadTrackForm from "@/components/common/UploadTrackForm.vue";
+import ListTracks from "@/components/common/tracks/ListTracks.vue";
+import UploadTrackForm from "@/components/common/tracks/UploadTrackForm.vue";
 </script>
 
 <template>
