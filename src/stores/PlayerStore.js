@@ -72,7 +72,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
     
         } else if (repeatStatus.value === "track") {
             currentTrack.value = trackList.value[currentIndex];
-            setPlayTimeStart();
+            playTrack();
             return;
 
         } else {
