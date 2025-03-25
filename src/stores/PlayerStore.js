@@ -11,8 +11,10 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const currentPlayTimePercents = ref(0);
     const trackDuration = ref(0);
     const trackList = ref([]);
+    const shuffledTrackList = ref([]);
     const repeatStatus = ref("none");
     const shuffleStatus = ref(false);
+    const trackQueue = ref([]);
 
     // Действия
     /*
@@ -53,8 +55,17 @@ export const usePlayerStore = defineStore('playerStore', () => {
         if (!currentTrack.value && !audioRef.value) {
             return;
         }
-        
-        const currentIndex = trackList.value.indexOf(currentTrack.value);
+
+        let trackQueue;
+        // Заполнение очереди взависимости 
+        if (shuffleStatus.value === true) {
+            trackQueue = shuffledTrackList.value;
+        } else {
+            trackQueue = trackList.value;
+        };
+        console.log(trackQueue);
+
+        const currentIndex = trackQueue.indexOf(currentTrack.value);
         let nextTrack;
 
         if (currentIndex < 0) {
@@ -62,22 +73,22 @@ export const usePlayerStore = defineStore('playerStore', () => {
         };
 
         if (repeatStatus.value === "list") {
-            if (currentIndex < trackList.value.length - 1) {
+            if (currentIndex < trackQueue.length - 1) {
                 // Переход к следующему треку
-                nextTrack = trackList.value[currentIndex + 1];
+                nextTrack = trackQueue[currentIndex + 1];
             } else {
                 // Возврат к первому треку
-                nextTrack = trackList.value[0];
+                nextTrack = trackQueue[0];
             }
     
         } else if (repeatStatus.value === "track") {
-            currentTrack.value = trackList.value[currentIndex];
+            currentTrack.value = trackQueue[currentIndex];
             playTrack();
             return;
 
         } else {
-            if (currentIndex < trackList.value.length - 1) {
-                nextTrack = trackList.value[currentIndex + 1];
+            if (currentIndex < trackQueue.length - 1) {
+                nextTrack = trackQueue[currentIndex + 1];
             } else {
                 pauseTrack();
                 return;
@@ -183,6 +194,15 @@ export const usePlayerStore = defineStore('playerStore', () => {
     // Меняет режим shuffle
     const toggleShuffle = () => {
         shuffleStatus.value = !shuffleStatus.value;
+        shuffleList();
+    };
+
+    const shuffleList = () => {
+        shuffledTrackList.value = [...trackList.value];
+        for (let i = shuffledTrackList.value.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledTrackList.value[i], shuffledTrackList.value[j]] = [shuffledTrackList.value[j], shuffledTrackList.value[i]];
+        }
     };
 
     // Возвращает состояние и действия
