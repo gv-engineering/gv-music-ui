@@ -1,5 +1,38 @@
-# Vue 3 + Vite
+# GV Music
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Description
+Music player project on vueJS3 with composition approach. At the development stage, it is supposed to be output to a self-hosted solution.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+Back-end part of the project: https://github.com/Ten-o69/gv_music_backend
+
+## Technologies
+- Vue.js 3
+- Vue Router
+- Pinia
+- Vite
+- Axios 
+- Font Awesome
+- Bootstrap 5
+
+## Installation
+```sh
+# Clone the repository
+git clone https://github.com/TvoiConfig/gv-music-frontend
+
+# Install dependencies
+npm install
+```
+
+## Usage
+```sh
+# Start the development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
