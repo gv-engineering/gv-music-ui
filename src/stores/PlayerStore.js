@@ -14,7 +14,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const shuffledTrackList = ref([]);
     const repeatStatus = ref("none");
     const shuffleStatus = ref(false);
-    const trackQueue = ref([]);
+    const tracksQueue = ref([]);
 
     // Действия
     /*
@@ -23,7 +23,14 @@ export const usePlayerStore = defineStore('playerStore', () => {
      */
     const uploadTrack = (track, tracks) => {
         currentTrack.value = track;
+
         trackList.value = tracks;
+        if (shuffleStatus.value) {
+            shuffleList();
+            tracksQueue.value = [...shuffledTrackList.value];
+        } else {
+            tracksQueue.value = [...trackList.value];
+        }
     };
 
     /*
@@ -56,44 +63,35 @@ export const usePlayerStore = defineStore('playerStore', () => {
             return;
         }
 
-        let trackQueue;
-        // Заполнение очереди взависимости 
-        if (shuffleStatus.value === true) {
-            trackQueue = shuffledTrackList.value;
-        } else {
-            trackQueue = trackList.value;
-        };
-        console.log(trackQueue);
-
-        const currentIndex = trackQueue.indexOf(currentTrack.value);
+        const currentIndex = tracksQueue.value.indexOf(currentTrack.value);
         let nextTrack;
 
         if (currentIndex < 0) {
             return;
-        };
+        }
 
         if (repeatStatus.value === "list") {
-            if (currentIndex < trackQueue.length - 1) {
+            if (currentIndex < tracksQueue.value.length - 1) {
                 // Переход к следующему треку
-                nextTrack = trackQueue[currentIndex + 1];
+                nextTrack = tracksQueue.value[currentIndex + 1];
             } else {
                 // Возврат к первому треку
-                nextTrack = trackQueue[0];
+                nextTrack = tracksQueue.value[0];
             }
     
         } else if (repeatStatus.value === "track") {
-            currentTrack.value = trackQueue[currentIndex];
+            currentTrack.value = tracksQueue.value[currentIndex];
             playTrack();
             return;
 
         } else {
-            if (currentIndex < trackQueue.length - 1) {
-                nextTrack = trackQueue[currentIndex + 1];
+            if (currentIndex < tracksQueue.value.length - 1) {
+                nextTrack = tracksQueue.value[currentIndex + 1];
             } else {
                 pauseTrack();
                 return;
             }
-        };
+        }
         currentTrack.value = nextTrack;
     };
 
@@ -102,19 +100,19 @@ export const usePlayerStore = defineStore('playerStore', () => {
             return;
         }
         
-        const currentIndex = trackList.value.indexOf(currentTrack.value);
+        const currentIndex = tracksQueue.value.indexOf(currentTrack.value);
         let nextTrack;
 
         if (currentIndex < 0) {
             return;
-        };
+        }
 
-        if (currentIndex < trackList.value.length - 1) {
+        if (currentIndex < tracksQueue.value.length - 1) {
             // Переход к следующему треку
-            nextTrack = trackList.value[currentIndex + 1];
+            nextTrack = tracksQueue.value[currentIndex + 1];
         } else {
             // Возврат к первому треку
-            nextTrack = trackList.value[0];
+            nextTrack = tracksQueue.value[0];
         }
 
         currentTrack.value = nextTrack;
@@ -129,13 +127,13 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const playPrevTrack = () => {
         if (currentTrack.value && audioRef.value) {
             if (audioRef.value.currentTime < 3.0) {
-                const currentIndex = trackList.value.indexOf(currentTrack.value);
+                const currentIndex = tracksQueue.value.indexOf(currentTrack.value);
                 let prevTrack;
 
                 if (currentIndex > 0) {
-                    prevTrack = trackList.value[currentIndex - 1];
+                    prevTrack = tracksQueue.value[currentIndex - 1];
                 } else {
-                    prevTrack = trackList.value[trackList.value.length - 1];
+                    prevTrack = tracksQueue.value[tracksQueue.value.length - 1];
                 }
 
                 currentTrack.value = prevTrack;
@@ -193,8 +191,16 @@ export const usePlayerStore = defineStore('playerStore', () => {
 
     // Меняет режим shuffle
     const toggleShuffle = () => {
-        shuffleStatus.value = !shuffleStatus.value;
-        shuffleList();
+        if (shuffleStatus.value) {
+            shuffleStatus.value = false;
+            tracksQueue.value = [...trackList.value];
+        } else {
+            shuffleStatus.value = true;
+            if (trackList.value) {
+                shuffleList();
+                tracksQueue.value = [...shuffledTrackList.value];
+            }
+        }
     };
 
     const shuffleList = () => {
