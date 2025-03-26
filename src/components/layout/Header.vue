@@ -12,7 +12,7 @@ import { RouterLink } from 'vue-router';
 
       <div class="ms-auto">
         <RouterLink class="p-2" to="/login">Войти</RouterLink>
-        <a class="p-2" href="#">Регистрация</a>
+        <RouterLink class="p-2" to="/register">Регистрация</RouterLink>
       </div>
     </div>
   </header>
