@@ -33,7 +33,7 @@ watch(currentTrack, () => {
 </script>
 
 <template>
-  <div class="player container-fluid fixed-bottom p-0">
+  <div class="bg-1E container-fluid fixed-bottom p-0">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center flex-grow-1 justify-content-center">
         <PlayerTrackInfo/>
@@ -54,10 +54,3 @@ watch(currentTrack, () => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.player {
-  background-color: #1E1E1E;
-}
-
-</style>

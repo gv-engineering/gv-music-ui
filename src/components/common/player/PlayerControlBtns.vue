@@ -90,6 +90,7 @@ const currentRepeatSvg = computed(() => {
   justify-content: center;
   align-items: center;
 }
+
 .player-repeat-svg svg {
   width: 20px;
   height: 20px;

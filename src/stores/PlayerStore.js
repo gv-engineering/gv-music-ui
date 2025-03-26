@@ -114,7 +114,6 @@ export const usePlayerStore = defineStore('playerStore', () => {
             // Возврат к первому треку
             nextTrack = tracksQueue.value[0];
         }
-
         currentTrack.value = nextTrack;
     };
 

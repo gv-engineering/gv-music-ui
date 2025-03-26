@@ -7,12 +7,17 @@ main {
     height: 100px;
 }
 
-.list-h {
+.color-E0 {
     color: #E0E0E0;
 }
 
-.list-photo {
-    width: 50px;
-    height: 50px;
+.bg-1E {
+    background-color: #1E1E1E;
+}
+.color-1E {
+    color: #1E1E1E;
 }
 
+.color-A0 {
+    color: #A0A0A0;
+}
