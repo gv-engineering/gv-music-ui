@@ -40,13 +40,14 @@
 .form-control {
     background-color: #121212;
     border: none;
-
+    color: #E0E0E0;
 }
 
 .form-control:focus {
     transition: all ease .2s;
     box-shadow: 0 0 0 0.2rem rgba(255, 64, 129, 0.5);
     background-color: #121212;
+    color: rgba(255, 64, 129, 0.5);
 }
 
 
