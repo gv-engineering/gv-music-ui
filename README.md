@@ -14,6 +14,12 @@ Back-end part of the project: https://github.com/Ten-o69/gv_music_backend
 - Font Awesome
 - Bootstrap 5
 
+## Setup
+Before starting the project, you need to set up the back-end part of the project, as mentioned in the link above. After setting up the back-end, create a .env file and specify the following inside:
+```sh
+VITE_API_URL=http://UrlToYourAPI/api/v1
+```
+
 ## Installation
 ```sh
 # Clone the repository

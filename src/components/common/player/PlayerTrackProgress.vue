@@ -7,16 +7,17 @@ const playerStore = usePlayerStore();
 const { currentPlayTimePercents, audioRef, currentTrack } = storeToRefs(playerStore);
 const { updatePlayTime } = playerStore;
 
+// Track switching relative to pressing the progress bar
 const seekTrack = (event) => {
     if (audioRef.value && currentTrack.value) {
-      const progressBar = event.currentTarget; // Элемент прогресс-бара
-      const rect = progressBar.getBoundingClientRect(); // Позиция и размеры прогресс-бара
-      const clickX = event.clientX - rect.left; // Позиция клика относительно начала прогресс-бара
-      const width = rect.width; // Полная ширина прогресс-бара
-      const seekTime = (clickX / width) * audioRef.value.duration; // Вычисляем новую позицию в секундах
+      const progressBar = event.currentTarget; // Progress bar element
+      const rect = progressBar.getBoundingClientRect(); // Position and size of the progress bar
+      const clickX = event.clientX - rect.left; // Click position relative to the beginning of the progress bar
+      const width = rect.width; // Full width of the progress bar
+      const seekTime = (clickX / width) * audioRef.value.duration; // Calculate the new position in seconds
   
-      audioRef.value.currentTime = seekTime; // Устанавливаем новое время трека
-      updatePlayTime(); // Обновляем прогресс
+      audioRef.value.currentTime = seekTime; // Set a new track time
+      updatePlayTime(); // Updating progress
     }
   };
 </script>
@@ -41,7 +42,7 @@ const seekTrack = (event) => {
   cursor: pointer;
 }
 .progress-bar {
-  transition: width 0.5s linear; /* Плавное изменение ширины за 0.1 секунды */
+  transition: width 0.5s linear;
   background-color: #FF4081;
 }
 </style>
