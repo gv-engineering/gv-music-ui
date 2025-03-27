@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const usePlayerStore = defineStore('playerStore', () => {
-    // Состояние
+    // States
     const currentTrack = ref(null);
     const isPlaying = ref(false);
     const volume = ref(1);
@@ -16,10 +16,10 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const shuffleStatus = ref(false);
     const tracksQueue = ref([]);
 
-    // Действия
+    // Actions
     /*
-    Записывает выбранный пользователем трек
-    формирует список треков
+    Records the track selected by the user
+    generates a track list depending on the shuffle state
      */
     const uploadTrack = (track, tracks) => {
         currentTrack.value = track;
@@ -34,9 +34,9 @@ export const usePlayerStore = defineStore('playerStore', () => {
     };
 
     /*
-    Устанавливает громкость,
-    запускает проигрывание,
-    меняет глобальное состояние проигрывания на true
+    Sets the volume,
+    starts playback,
+    changes the global playback state to true
     */
     const playTrack = () => {
         if (audioRef.value) {
@@ -46,7 +46,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         }
     };
 
-    // Устанавливает проигрывание трека в начало
+    // Sets track playback to the beginning
     const setPlayTimeStart = () => {
         if (audioRef.value) {
             audioRef.value.currentTime = 0;
@@ -54,36 +54,42 @@ export const usePlayerStore = defineStore('playerStore', () => {
     };
 
     /*
-    Инициализирует индекс текущего трека
-    запускает следующий трек из очереди
-    если трек в очереди последний - запускает первый
+    Initializes the index of the current track
+    starts the next track from the queue
+    monitors the repeat value and depending on the status repeats/unrepeats the queue
      */
     const AutoNextTrack = () => {
+        // Validator. Checks if the track is selected and mounted in the DOM
         if (!currentTrack.value && !audioRef.value) {
             return;
         }
 
+        // Index initialize
         const currentIndex = tracksQueue.value.indexOf(currentTrack.value);
         let nextTrack;
 
+        // Validator. Cheks index for broken value 
         if (currentIndex < 0) {
             return;
         }
 
+        // Run repeat when repeat === list
         if (repeatStatus.value === "list") {
             if (currentIndex < tracksQueue.value.length - 1) {
-                // Переход к следующему треку
+                // Play next track
                 nextTrack = tracksQueue.value[currentIndex + 1];
             } else {
-                // Возврат к первому треку
+                // Play firt track from queue
                 nextTrack = tracksQueue.value[0];
             }
     
+        // Run repeat one track whe status track
         } else if (repeatStatus.value === "track") {
             currentTrack.value = tracksQueue.value[currentIndex];
             playTrack();
             return;
 
+        // Run norepeat mod when status none or else
         } else {
             if (currentIndex < tracksQueue.value.length - 1) {
                 nextTrack = tracksQueue.value[currentIndex + 1];
@@ -95,33 +101,36 @@ export const usePlayerStore = defineStore('playerStore', () => {
         currentTrack.value = nextTrack;
     };
 
+    // Manual play next track via btn in player
     const playNextTrack = () => {
+        // Validator. Checks if the track is selected and mounted in the DOM
         if (!currentTrack.value && !audioRef.value) {
             return;
         }
         
+        // Index initializ
         const currentIndex = tracksQueue.value.indexOf(currentTrack.value);
         let nextTrack;
 
+        // Validator. Cheks index for broken value 
         if (currentIndex < 0) {
             return;
         }
 
         if (currentIndex < tracksQueue.value.length - 1) {
-            // Переход к следующему треку
+            // Play next track
             nextTrack = tracksQueue.value[currentIndex + 1];
         } else {
-            // Возврат к первому треку
+            // Play firt track from queue
             nextTrack = tracksQueue.value[0];
         }
         currentTrack.value = nextTrack;
     };
 
     /*
-    Инициализирует индекс текущего трека
-    запускает предыдущий трек из очереди
-    если трек в очереди первый - запускает последний
-    если трек проиграл больше 3 секунд вместо переключения отматывает трек в начало
+    Initializes the index of the current track
+    starts the previous track from the queue
+    if the track has played for more than 3 seconds instead of switching, rewinds the track to the beginning
      */
     const playPrevTrack = () => {
         if (currentTrack.value && audioRef.value) {
@@ -142,7 +151,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         }
     };
 
-    // Выключает проигрывание, меняет глобальное состояние проигрывания на false
+    // Turns off playback, changes global playback state to false
     const pauseTrack = () => {
         if (audioRef.value) {
             audioRef.value.pause();
@@ -150,7 +159,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         }
     };
 
-    // Устанавливает глобальную громкость & Если проигрывание запущено меняет громкость
+    // Sets the global volume & If playback is running changes the volume
     const setVolume = (newVolume) => {
         if (newVolume >= 0 && newVolume <= 1) {
             volume.value = newVolume;
@@ -161,8 +170,8 @@ export const usePlayerStore = defineStore('playerStore', () => {
     };
 
     /*
-    Обновляет текущее время проигрывание и длительность трека
-    Если трек кончился выполнять переключение
+    Updates the current playing time and track duration
+    If the track is over performs a toggle
      */
 
     const updatePlayTime = (time) => {
@@ -177,18 +186,18 @@ export const usePlayerStore = defineStore('playerStore', () => {
         }
     };
 
-    // Меняет режимы повтора
+    // Change repeat mod
     const toggleRepeat = () => {
-        if (repeatStatus.value === "none") { // Если выключен любой повтор включить повтор списка
+        if (repeatStatus.value === "none") { // If any repeat is disabled enable list repeat
             repeatStatus.value = "list";
-        } else if (repeatStatus.value === "list") { //Если включен повтор очереди включить повтор трека
+        } else if (repeatStatus.value === "list") { // If list repeat is enabled enable track repeat
             repeatStatus.value = "track";
-        } else { // Если включен повтор трека отключить повтор
+        } else { // If track repeat is enabled disable repeat
             repeatStatus.value = "none";
         }
     };
 
-    // Меняет режим shuffle
+    // change shuffle mod
     const toggleShuffle = () => {
         if (shuffleStatus.value) {
             shuffleStatus.value = false;
@@ -202,6 +211,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         }
     };
 
+    // shuffle tracklist and input result in new array
     const shuffleList = () => {
         shuffledTrackList.value = [...trackList.value];
         for (let i = shuffledTrackList.value.length - 1; i > 0; i--) {
@@ -210,7 +220,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         }
     };
 
-    // Возвращает состояние и действия
+    // Return actions and states
     return {
         currentTrack,
         isPlaying,

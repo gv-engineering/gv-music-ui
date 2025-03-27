@@ -7,6 +7,7 @@ import { usePlayerStore } from '@/stores/PlayerStore.js';
 const apiUrl = import.meta.env.VITE_API_URL;
 const tracks = ref([]);
 
+// Getting track list from back-end
 const fetchTracks = async () => {
   try {
     const response = await axios.get(apiUrl + "/tracks");
@@ -16,16 +17,17 @@ const fetchTracks = async () => {
   }
 };
 
+// Hook after DOM for fetch track list
 onMounted(() => {
   fetchTracks();
 })
 
 const PlayerStore = usePlayerStore();
 
+// Upload selected track & list to store
 const selectTrack = (track, tracks) => {
   PlayerStore.uploadTrack(track, tracks);
 };
-
 </script>
 
 <template>

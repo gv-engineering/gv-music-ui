@@ -18,7 +18,7 @@ const {
   toggleShuffle
 } = playerStore;
 
-// Включение или выключение проигрывания трека
+// Turns track playback on or off
 const togglePlaying = () => {
   if (isPlaying.value) {
     pauseTrack();
@@ -29,6 +29,7 @@ const togglePlaying = () => {
 
 const isRepeatActive = computed(() => repeatStatus.value !== 'none')
 
+// Switching the repeat icon depending on status
 const currentRepeatSvg = computed(() => {
   return repeatStatus.value === 'track' ? repeatOneSvg : repeatListSvg;
 })

@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
 <!--  <h4 class="px-2 color-E0 mt-1">Форма загрузки трека</h4>-->
   <form class="d-flex col-12 gap-2">

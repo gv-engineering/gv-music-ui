@@ -8,7 +8,7 @@ import { watch, nextTick } from "vue";
 import PlayerTrackProgress from "../common/player/PlayerTrackProgress.vue";
 import PlayerControlBtns from "@/components/common/player/PlayerControlBtns.vue";
 
-
+// VueUse script to define mobile/desktop
 const { isDesktop } = useIsDesktop();
 
 const playerStore = usePlayerStore();
@@ -17,12 +17,12 @@ const { updatePlayTime, playTrack } = playerStore;
 
 
 
-// Снимает значение текущего времени воспроизведения с реактива <audio>
+// Gets the value of the current playback time with <audio> ref
 const onTimeUpdate = () => {
   updatePlayTime(audioRef.value.currentTime);
 };
 
-// Авто воспроизведение при выборе трека
+// Auto playback when a track is selected
 watch(currentTrack, () => {
   nextTick(() => {
     if (audioRef.value) {
