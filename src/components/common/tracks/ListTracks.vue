@@ -3,15 +3,27 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import LikeBtn from "@/components/common/tracks/LikeBtn.vue";
 import { usePlayerStore } from '@/stores/PlayerStore.js';
+import { usePaginationStore } from '@/stores/PaginationStore.js';
+
+
+const paginationStore = usePaginationStore();
+
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const tracks = ref([]);
 
+
 // Getting track list from back-end
 const fetchTracks = async () => {
   try {
-    const response = await axios.get(apiUrl + "/tracks");
+    const response = await axios.get(apiUrl + "/tracks", {
+      params: {
+        page: paginationStore.currentPage,
+        limit: paginationStore.limit,
+      },
+    });
     tracks.value = response.data.tracks;
+    paginationStore.setTotalPages(response.data.totalPages);
   } catch (error) {
     console.error('Ошибка при загрузки треков:', error);
   }
