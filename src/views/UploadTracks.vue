@@ -1,7 +1,7 @@
 <script setup>
 import uploadSvg from "@/assets/images/upload.svg";
-import ListTracks from "@/components/common/tracks/ListTracks.vue";
-import UploadTrackForm from "@/components/common/tracks/UploadTrackForm.vue";
+import ListTracks from "@/components/feature/tracks/ListTracks.vue";
+import UploadTrackForm from "@/components/feature/tracks/UploadTrackForm.vue";
 </script>
 
 <template>

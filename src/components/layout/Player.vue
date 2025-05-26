@@ -1,12 +1,12 @@
 <script setup>
-import PlayerVolumeSlider from "@/components/common/player/PlayerVolumeSlider.vue";
-import PlayerTrackInfo from "../common/player/PlayerTrackInfo.vue";
+import PlayerVolumeSlider from "@/components/feature/player/PlayerVolumeSlider.vue";
+import PlayerTrackInfo from "../feature/player/PlayerTrackInfo.vue";
 import { usePlayerStore } from "@/stores/PlayerStore";
 import { useIsDesktop } from "@/composables/useIsDesktop";
 import { storeToRefs } from "pinia";
 import { watch, nextTick } from "vue";
-import PlayerTrackProgress from "../common/player/PlayerTrackProgress.vue";
-import PlayerControlBtns from "@/components/common/player/PlayerControlBtns.vue";
+import PlayerTrackProgress from "../feature/player/PlayerTrackProgress.vue";
+import PlayerControlBtns from "@/components/feature/player/PlayerControlBtns.vue";
 
 // VueUse script to define mobile/desktop
 const { isDesktop } = useIsDesktop();

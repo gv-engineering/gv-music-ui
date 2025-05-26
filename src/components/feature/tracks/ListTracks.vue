@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import LikeBtn from "@/components/common/tracks/LikeBtn.vue";
+import LikeBtn from "@/components/feature/tracks/LikeBtn.vue";
 import { usePlayerStore } from '@/stores/PlayerStore.js';
 import { usePaginationStore } from '@/stores/PaginationStore.js';
 
