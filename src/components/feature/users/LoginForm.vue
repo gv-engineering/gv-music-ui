@@ -6,10 +6,10 @@ import BaseButton from "@/components/base/BaseButton.vue";
 
 const username = ref('');
 const password = ref('');
-const agreed = ref();
+const agreed = ref(false);
 
 function login() {
-  console.log("Login works! " + username.value + ":" + password.value);
+  console.log("Login works! " + username.value + ":" + password.value + ":" + agreed.value);
 }
 </script>
 

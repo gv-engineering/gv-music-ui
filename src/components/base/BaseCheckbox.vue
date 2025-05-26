@@ -24,6 +24,9 @@ defineEmits(["update:modelValue"])
 </template>
 
 <style scoped>
+.form-check-input {
+  background-color: #E0E0E0;
+}
 .form-check-input:checked {
   transition: all ease .2s;
   background-color: #FF4081;

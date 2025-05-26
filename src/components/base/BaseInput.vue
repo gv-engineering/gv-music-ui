@@ -34,12 +34,12 @@ defineEmits(["update:modelValue"])
         @input="$emit('update:modelValue', $event.target.value)"
     />
 
-    <div
-        class=""
+    <small
+        class="help-desc"
         v-if="help"
     >
       {{ help }}
-    </div>
+    </small>
   </div>
 </template>
 
@@ -55,5 +55,9 @@ input:focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 64, 129, 0.5);
   background-color: #121212;
   color: rgba(255, 64, 129, 0.5);
+}
+
+.help-desc {
+  color: #aaaaaa;
 }
 </style>
