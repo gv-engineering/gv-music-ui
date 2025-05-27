@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import BaseInput from "@/components/base/BaseInput.vue";
-import BaseButton from "@/components/base/BaseButton.vue";
+import BaseInput from "@/ui/BaseInput.vue";
+import BaseButton from "@/ui/BaseButton.vue";
 import {RouterLink} from "vue-router";
 
 const registerToken = ref("");

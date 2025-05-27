@@ -1,7 +1,7 @@
 <script setup>
-import repeatListSvg from '@/assets/images/repeat.svg?raw'
-import repeatOneSvg from '@/assets/images/repeatOne.svg?raw'
-import shuffleSvg from '@/assets/images/shuffle.svg?raw'
+import repeatListSvg from '@/shared/images/repeat.svg?raw'
+import repeatOneSvg from '@/shared/images/repeatOne.svg?raw'
+import shuffleSvg from '@/shared/images/shuffle.svg?raw'
 import {usePlayerStore} from "@/stores/PlayerStore.js";
 import {storeToRefs} from "pinia";
 import {computed} from "vue";

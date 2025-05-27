@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import BaseInput from "@/components/base/BaseInput.vue";
-import BaseCheckbox from "@/components/base/BaseCheckbox.vue";
-import BaseButton from "@/components/base/BaseButton.vue";
+import BaseInput from "@/ui/BaseInput.vue";
+import BaseCheckbox from "@/ui/BaseCheckbox.vue";
+import BaseButton from "@/ui/BaseButton.vue";
 import {RouterLink} from "vue-router";
 
 const username = ref('');

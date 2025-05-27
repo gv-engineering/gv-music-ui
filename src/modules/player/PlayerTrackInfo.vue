@@ -1,5 +1,5 @@
 <script setup>
-import { useIsDesktop } from "@/composables/useIsDesktop.js";
+import { useIsDesktop } from "@/shared/helpers/useIsDesktop.js";
 import { usePlayerStore } from "@/stores/PlayerStore.js";
 import { storeToRefs } from "pinia";
 
