@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
+import {RouterLink} from "vue-router";
 
 const registerToken = ref("");
 const login = ref("");
@@ -20,7 +21,7 @@ function register() {
 </script>
 
 <template>
-  <form @submit.prevent="register">
+  <form @submit.prevent="register" class="d-flex flex-column gap-3">
     <BaseInput
       id="registerToken"
       label="Токен"
@@ -52,5 +53,10 @@ function register() {
       type="submit"
       @click="register"
     />
+
+    <div class="loginBtns d-flex">
+      <p>Есть аккаунт?</p>
+      <router-link class="ms-2" to="/register">Войти</router-link>
+    </div>
   </form>
 </template>

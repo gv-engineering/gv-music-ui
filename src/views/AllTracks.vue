@@ -1,6 +1,6 @@
 <script setup>
 import allTracksSvg from '@/assets/images/alltracks.svg';
-import ListTracks from "@/components/feature/tracks/ListTracks.vue";
+import ListTracks from "@/components/features/tracks/ListTracks.vue";
 </script>
 
 <template>

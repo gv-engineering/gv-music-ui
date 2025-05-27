@@ -29,7 +29,7 @@ defineEmits(['click']);
 <style scoped>
 button {
   background-color: #121212;
-  color: #E0E0E0;
+  color: #db2763;
   transition: all ease 0.3s;
 }
 

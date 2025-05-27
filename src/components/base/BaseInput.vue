@@ -20,8 +20,12 @@ defineEmits(["update:modelValue"])
 </script>
 
 <template>
-  <div class="mb-2">
-    <label :for="id" class="color-E0 m-0">
+  <div>
+    <label
+        v-if="label"
+        :for="id"
+        class="color-E0 m-0"
+    >
       {{ label }}
     </label>
 

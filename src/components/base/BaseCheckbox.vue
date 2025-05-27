@@ -9,7 +9,7 @@ defineEmits(["update:modelValue"])
 </script>
 
 <template>
-  <div class="form-check mb-2">
+  <div class="form-check">
     <input
         :id="id"
         type="checkbox"

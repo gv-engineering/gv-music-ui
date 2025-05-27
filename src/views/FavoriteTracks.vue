@@ -1,6 +1,6 @@
 <script setup>
 import HeartEmpty from '@/assets/images/heartEmpty.svg'
-import ListTracks from "@/components/feature/tracks/ListTracks.vue";
+import ListTracks from "@/components/features/tracks/ListTracks.vue";
 </script>
 
 <template>
