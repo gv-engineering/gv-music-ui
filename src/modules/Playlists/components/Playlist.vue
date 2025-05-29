@@ -3,12 +3,19 @@ import { onMounted } from "vue";
 import { usePlayerStore } from '@/modules/Player/store/PlayerStore.js';
 import PlaylistItem from "@/components/PlaylistItem.vue";
 import {usePlaylistStore} from "@/modules/Playlists/store/PlaylistStore.js";
+import {storeToRefs} from "pinia";
 
 
-const { currentPlaylistTracks, loading, error, fetchCurrentTracks } = usePlaylistStore();
+const playlistStore = usePlaylistStore();
+const {
+  currentPlaylistTracks,
+  loading,
+  error
+} = storeToRefs(playlistStore);
+
 // Hook after DOM for fetch track list
 onMounted(() => {
-  fetchCurrentTracks();
+  playlistStore.fetchCurrentTracks();
 })
 
 // CRINGE ALERT
