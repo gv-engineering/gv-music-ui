@@ -1,7 +1,7 @@
 <script setup>
 import uploadSvg from "@/shared/images/upload.svg";
-import ListTracks from "@/modules/tracks/ListTracks.vue";
-import UploadTrackForm from "@/modules/tracks/UploadTrackForm.vue";
+// import Playlist from "@/modules/Playlists/components/Playlist.vue";
+import UploadTrackForm from "@/modules/UploadTrackForm/UploadTrackForm.vue";
 import BaseSectionTitle from "@/ui/BaseSectionTitle.vue";
 </script>
 
@@ -11,10 +11,9 @@ import BaseSectionTitle from "@/ui/BaseSectionTitle.vue";
 
     <UploadTrackForm></UploadTrackForm>
 
-    <div class="d-flex flex-column">
-      <h4 class="color-E0 m-2">Загружено вами</h4>
-      <ListTracks/>
-    </div>
+<!--    <div class="d-flex flex-column">-->
+<!--      <h4 class="color-E0 m-2">Загружено вами</h4>-->
+<!--    </div>-->
 
   </main>
 </template>

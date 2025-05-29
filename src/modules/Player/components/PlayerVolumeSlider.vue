@@ -1,5 +1,5 @@
 <script setup>
-import { usePlayerStore } from "@/stores/PlayerStore.js";
+import { usePlayerStore } from "@/modules/Player/store/PlayerStore.js";
 
 
 const PlayerStore = usePlayerStore();

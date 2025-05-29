@@ -101,7 +101,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         currentTrack.value = nextTrack;
     };
 
-    // Manual play next track via btn in player
+    // Manual play next track via btn in Player
     const playNextTrack = () => {
         // Validator. Checks if the track is selected and mounted in the DOM
         if (!currentTrack.value && !audioRef.value) {

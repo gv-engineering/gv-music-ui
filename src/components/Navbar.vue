@@ -6,7 +6,6 @@ import { RouterLink } from 'vue-router';
   <header>
     <div class="navbar bg-1E container-fluid d-flex justify-content-center align-items-center fixed-top">
       <router-link class="p-2" to="/">Главная</router-link>
-      <router-link class="p-2" to="/favorite">Любимые треки</router-link>
       <router-link class="p-2" to="/upload">Публикация треков</router-link>
 
       <div class="ms-auto">

@@ -1,7 +1,7 @@
 <script setup>
 import allTracksSvg from '@/shared/images/alltracks.svg';
-import ListTracks from "@/modules/tracks/ListTracks.vue";
 import BaseSectionTitle from "@/ui/BaseSectionTitle.vue";
+import {Playlist} from "@/modules/Playlists/index.js";
 </script>
 
 <template>
@@ -10,6 +10,6 @@ import BaseSectionTitle from "@/ui/BaseSectionTitle.vue";
         header="Вся музыка сервиса"
         :src="allTracksSvg"
     />
-    <ListTracks/>
+    <Playlist/>
   </main>
 </template>

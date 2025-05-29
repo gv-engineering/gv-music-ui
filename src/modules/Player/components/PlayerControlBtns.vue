@@ -2,7 +2,7 @@
 import repeatListSvg from '@/shared/images/repeat.svg?raw'
 import repeatOneSvg from '@/shared/images/repeatOne.svg?raw'
 import shuffleSvg from '@/shared/images/shuffle.svg?raw'
-import {usePlayerStore} from "@/stores/PlayerStore.js";
+import {usePlayerStore} from "@/modules/Player/store/PlayerStore.js";
 import {storeToRefs} from "pinia";
 import {computed} from "vue";
 

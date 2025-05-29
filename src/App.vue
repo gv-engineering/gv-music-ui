@@ -1,6 +1,6 @@
 <script setup>
 import Navbar from './components/Navbar.vue'
-import Player from "./modules/layout/Player.vue";
+import Player from "./modules/Player/components/Player.vue";
 </script>
 
 <template>
