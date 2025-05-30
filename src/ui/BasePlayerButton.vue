@@ -36,7 +36,7 @@ const isFontAwesomeIcon = computed(() => {
         class="player-btn d-flex justify-content-center align-content-center"
         :style="{ fontSize: size + 'px' }"
     />
-    <component
+    <span
         v-else
         v-html="icon"
         :class="{ 'player-btn-active': active }"
