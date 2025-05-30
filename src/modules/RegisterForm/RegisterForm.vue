@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import BaseInput from "@/ui/BaseInput.vue";
-import BaseButton from "@/ui/BaseButton.vue";
+import BaseFormButton from "@/ui/BaseFormButton.vue";
 import {RouterLink} from "vue-router";
 
 const registerToken = ref("");
@@ -51,7 +51,7 @@ function register() {
           v-model="passwordConfirmation"
         />
 
-        <BaseButton
+        <BaseFormButton
           text="Регистрация"
           type="submit"
           @click="register"

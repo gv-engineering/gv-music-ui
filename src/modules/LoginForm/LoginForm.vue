@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import BaseInput from "@/ui/BaseInput.vue";
 import BaseCheckbox from "@/ui/BaseCheckbox.vue";
-import BaseButton from "@/ui/BaseButton.vue";
+import BaseFormButton from "@/ui/BaseFormButton.vue";
 import {RouterLink} from "vue-router";
 
 const username = ref('');
@@ -38,7 +38,7 @@ function login() {
           />
 
 
-          <BaseButton
+          <BaseFormButton
               text="Войти"
               type="submit"
           />

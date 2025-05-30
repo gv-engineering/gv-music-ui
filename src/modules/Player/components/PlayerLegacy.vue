@@ -1,21 +1,40 @@
 <script setup>
 import PlayerVolumeSlider from "@/modules/Player/components/PlayerVolumeSlider.vue";
-import PlayerTrackInfo from "./PlayerTrackInfo.vue";
 import { usePlayerStore } from "@/modules/Player/store/PlayerStore.js";
-import { useIsDesktop } from "@/shared/helpers/useIsDesktop.js";
+import { isDesktop } from "@/shared/helpers/useIsDesktop.js";
 import { storeToRefs } from "pinia";
-import { watch, nextTick } from "vue";
+import {watch, nextTick} from "vue";
 import PlayerTrackProgress from "./PlayerTrackProgress.vue";
-import PlayerControlBtns from "@/modules/Player/components/PlayerControlBtns.vue";
+import PlayerControls from "@/components/PlayerControls.vue";
+import PlayerTrackInfo from "@/components/PlayerTrackInfo.vue";
 
-// VueUse script to define mobile/desktop
-const { isDesktop } = useIsDesktop();
 
 const playerStore = usePlayerStore();
-const { currentTrack, audioRef } = storeToRefs(playerStore);
-const { updatePlayTime, playTrack } = playerStore;
+const {
+  currentTrack,
+  isPlaying,
+  audioRef,
+  repeatStatus,
+  shuffleStatus,
+} = storeToRefs(playerStore);
+const {
+  playPrevTrack,
+  playTrack,
+  playNextTrack,
+  pauseTrack,
+  updatePlayTime,
+  toggleRepeat,
+  toggleShuffle,
+} = playerStore;
 
-
+// Turns track playback on or off
+const togglePlaying = () => {
+  if (isPlaying.value) {
+    pauseTrack();
+  } else {
+    playTrack();
+  }
+};
 
 // Gets the value of the current playback time with <audio> ref
 const onTimeUpdate = () => {
@@ -36,8 +55,19 @@ watch(currentTrack, () => {
   <div class="bg-1E container-fluid fixed-bottom p-0">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center flex-grow-1 justify-content-center">
-        <PlayerTrackInfo/>
-        <PlayerControlBtns/>
+        <PlayerTrackInfo
+            :current-track="currentTrack"
+        />
+        <player-controls
+            :repeat-state="repeatStatus"
+            :is-playing="isPlaying"
+            :is-shuffle-active="shuffleStatus"
+            @nextTrack="playPrevTrack"
+            @prevTrack="playNextTrack"
+            @toggleRepeat="toggleRepeat"
+            @toggleShuffle="toggleShuffle"
+            @togglePlaying="togglePlaying"
+        />
         <audio
             ref="audioRef"
             v-if="currentTrack"

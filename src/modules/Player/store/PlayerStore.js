@@ -12,7 +12,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
     const trackDuration = ref(0);
     const trackList = ref([]);
     const shuffledTrackList = ref([]);
-    const repeatStatus = ref("none");
+    const repeatStatus = ref("off");
     const shuffleStatus = ref(false);
     const tracksQueue = ref([]);
 
@@ -74,7 +74,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         }
 
         // Run repeat when repeat === list
-        if (repeatStatus.value === "list") {
+        if (repeatStatus.value === "all") {
             if (currentIndex < tracksQueue.value.length - 1) {
                 // Play next track
                 nextTrack = tracksQueue.value[currentIndex + 1];
@@ -84,7 +84,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
             }
     
         // Run repeat one track whe status track
-        } else if (repeatStatus.value === "track") {
+        } else if (repeatStatus.value === "one") {
             currentTrack.value = tracksQueue.value[currentIndex];
             playTrack();
             return;
@@ -101,7 +101,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         currentTrack.value = nextTrack;
     };
 
-    // Manual play next track via btn in Player
+    // Manual play next track via btn in PlayerLegacy
     const playNextTrack = () => {
         // Validator. Checks if the track is selected and mounted in the DOM
         if (!currentTrack.value && !audioRef.value) {
@@ -188,12 +188,12 @@ export const usePlayerStore = defineStore('playerStore', () => {
 
     // Change repeat mod
     const toggleRepeat = () => {
-        if (repeatStatus.value === "none") { // If any repeat is disabled enable list repeat
-            repeatStatus.value = "list";
-        } else if (repeatStatus.value === "list") { // If list repeat is enabled enable track repeat
-            repeatStatus.value = "track";
+        if (repeatStatus.value === "off") { // If any repeat is disabled enable list repeat
+            repeatStatus.value = "all";
+        } else if (repeatStatus.value === "all") { // If list repeat is enabled enable track repeat
+            repeatStatus.value = "one";
         } else { // If track repeat is enabled disable repeat
-            repeatStatus.value = "none";
+            repeatStatus.value = "off";
         }
     };
 

@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from "vue";
-import BaseButton from "@/ui/BaseButton.vue";
+import BaseFormButton from "@/ui/BaseFormButton.vue";
 import BaseInput from "@/ui/BaseInput.vue";
 import BaseFileInput from "@/ui/BaseFileInput.vue";
 
@@ -74,7 +74,7 @@ function upload() {
         />
 
         <div>
-          <BaseButton
+          <BaseFormButton
               text="Отправить"
               type="submit"
           />
