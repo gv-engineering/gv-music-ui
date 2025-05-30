@@ -3,8 +3,7 @@ import {isDesktop} from "@/shared/helpers/useIsDesktop.js";
 
 defineProps({
   currentTrack: {
-    required: true,
-    type: Object,
+    type: [Object]
   }
 })
 </script>
