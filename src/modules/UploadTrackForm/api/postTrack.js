@@ -15,6 +15,10 @@ export const postTrack = async (file, cover, title, artist) => {
                 'Content-Type': 'multipart/form-data',
             }
         });
+
+        // TEMP
+        alert("Успешно загружено!");
+
         return response.data;
     } catch (error) {
         console.error('ошибка при загрузке трека:', error);
