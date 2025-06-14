@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props = defineProps({
   multiple: Boolean,
   accept: String,
   label: String,
@@ -8,12 +8,22 @@ defineProps({
     required: true,
   },
   modelValue: {
-    type: Array,
+    type: [File, Array],
     default: () => []
   }
 });
 
-defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
+
+function handleChange(event) {
+  const files = event.target.files;
+
+  if (props.multiple) {
+    emit("update:modelValue", Array.from(files));
+  } else {
+    emit("update:modelValue", files[0]);
+  }
+}
 </script>
 
 <template>
@@ -32,8 +42,7 @@ defineEmits(["update:modelValue"]);
         :id="id"
         :accept="accept"
         :multiple="multiple"
-        :value="modelValue"
-        @change="$emit('update:modelValue', $event.target.value)"
+        @change="handleChange"
     >
   </div>
 </template>

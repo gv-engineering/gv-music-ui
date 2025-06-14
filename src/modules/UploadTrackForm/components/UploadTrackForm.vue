@@ -3,6 +3,8 @@ import {ref} from "vue";
 import BaseFormButton from "@/ui/BaseFormButton.vue";
 import BaseInput from "@/ui/BaseInput.vue";
 import BaseFileInput from "@/ui/BaseFileInput.vue";
+import {postTrack} from "@/modules/UploadTrackForm/api/postTrack.js"
+
 
 const musicFile = ref(null);
 const coverFile = ref(null);
@@ -12,7 +14,7 @@ const musicLink = ref("");
 
 
 function upload() {
-  console.log("Upload works! " + coverFile)
+  postTrack(musicFile.value, coverFile.value, title.value, author.value)
 }
 </script>
 
@@ -25,6 +27,7 @@ function upload() {
         <BaseFileInput
             id="musicFile"
             accept="audio/*"
+            type="file"
             v-model="musicFile"
         />
       </div>
@@ -33,11 +36,11 @@ function upload() {
     <div class="w-50 my-2 p-2 bg-1E ms-auto rounded shadow">
       <label for="formFile" class="upload-label color-E0">Или укажите ссылку на трек</label>
       <div class="align-items-md-center mt-2">
-        <BaseInput
-            id="musicLink"
-            type="text"
-            v-model="musicLink"
-        />
+<!--        <BaseInput-->
+<!--            id="musicLink"-->
+<!--            type="text"-->
+<!--            v-model="musicLink"-->
+<!--        />-->
       </div>
     </div>
   </form>
