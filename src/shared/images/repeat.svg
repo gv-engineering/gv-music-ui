@@ -1,0 +1,19 @@
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        width="1em"
+        height="1em"
+>
+    <!-- Левая стрелка -->
+    <polyline points="7 3 3 7 7 11" />
+    <path d="M5 7h9a7 7 0 0 1 7 6" />
+
+    <!-- Правая стрелка -->
+    <polyline points="17 13 21 17 17 21" />
+    <path d="M19 17h-9a7 7 0 0 1-7-6" />
+</svg>

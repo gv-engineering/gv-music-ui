@@ -1,14 +1,11 @@
 import { createWebHistory, createRouter } from 'vue-router'
-
-import AllTracks from "@/views/AllTracks.vue";
-import FavoriteTracks from "@/views/FavoriteTracks.vue";
-import UploadTracks from "@/views/UploadTracks.vue";
-import Login from '@/views/Login.vue';
-import Register from '@/views/Register.vue';
+import AllTracks from "@/pages/AllTracks.vue";
+import UploadTracks from "@/pages/UploadTracks.vue";
+import Login from '@/pages/Login.vue';
+import Register from '@/pages/Register.vue';
 
 const routes = [
     { path: '/', component: AllTracks },
-    { path: '/favorite', component: FavoriteTracks },
     { path: '/upload', component: UploadTracks },
     { path: '/login', component: Login },
     { path: '/register', component: Register}

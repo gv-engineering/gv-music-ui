@@ -1,10 +1,10 @@
 <script setup>
-import Header from './components/layout/Header.vue'
-import Player from "./components/layout/Player.vue";
+import Navbar from './components/Navbar.vue'
+import Player from "./modules/Player/components/Player.vue";
 </script>
 
 <template>
-  <Header/>
+  <Navbar/>
   <router-view/>
   <Player/>
 </template>
