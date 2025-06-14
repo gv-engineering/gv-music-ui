@@ -9,8 +9,8 @@ import { RouterLink } from 'vue-router';
       <router-link class="p-2" to="/upload">Публикация треков</router-link>
 
       <div class="ms-auto">
-        <RouterLink class="p-2" to="/login">Войти</RouterLink>
-        <RouterLink class="p-2" to="/register">Регистрация</RouterLink>
+<!--        <RouterLink class="p-2" to="/login">Войти</RouterLink>-->
+<!--        <RouterLink class="p-2" to="/register">Регистрация</RouterLink>-->
       </div>
     </div>
   </header>

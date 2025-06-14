@@ -1,4 +1,5 @@
 <script setup >
+import noteSvg from "@/shared/images/note.svg";
 import {computed} from "vue";
 
 const props = defineProps({
@@ -20,7 +21,7 @@ const durationMinutes = computed(() => {
 
 <template>
   <div class="list-tracks-item d-flex align-items-center px-3 rounded my-1">
-    <img class="list-photo rounded shadow" alt="track cover" :src="track.cover_url">
+    <img class="list-photo rounded shadow" alt="track cover" :src="track.cover_url || noteSvg">
     <div class="track-info">
       <h4 class="color-E0 m-2">{{ track.title || 'Unknown title' }}</h4>
       <p class="color-A0 m-2">{{ track.artist || 'Unknown artist' }}</p>
