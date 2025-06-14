@@ -12,8 +12,8 @@ defineProps({
   <div v-if="currentTrack" class="position-absolute start-0 p-1 d-flex align-items-center">
     <img class="cover rounded shadow" :src="currentTrack.cover_url" alt="track cover">
     <div class="track-info" v-if="isDesktop">
-      <h4 class="color-E0 m-2">{{ currentTrack.title }}</h4>
-      <p class="color-A0 color-E0 m-2">{{ currentTrack.artist }}</p>
+      <h4 class="color-E0 m-2">{{ currentTrack.title || 'Unknown title' }}</h4>
+      <p class="color-A0 color-E0 m-2">{{ currentTrack.artist || 'Unknown artist' }}</p>
     </div>
   </div>
 </template>

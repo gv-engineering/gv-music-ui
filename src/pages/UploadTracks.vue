@@ -1,7 +1,7 @@
 <script setup>
 import uploadSvg from "@/shared/images/upload.svg";
 // import Playlist from "@/modules/Playlists/components/Playlist.vue";
-import UploadTrackForm from "@/modules/UploadTrackForm/UploadTrackForm.vue";
+import UploadTrackForm from "@/modules/UploadTrackForm/components/UploadTrackForm.vue";
 import BaseSectionTitle from "@/ui/BaseSectionTitle.vue";
 </script>
 
