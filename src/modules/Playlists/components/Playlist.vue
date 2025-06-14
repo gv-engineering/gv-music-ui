@@ -18,12 +18,11 @@ onMounted(() => {
   playlistStore.fetchCurrentTracks();
 })
 
-// CRINGE ALERT
 const PlayerStore = usePlayerStore();
 
 // Upload selected track & list to store
-const selectTrack = (track, tracks) => {
-  PlayerStore.uploadTrack(track, tracks);
+const selectTrack = (track) => {
+  PlayerStore.uploadTrack(track);
 };
 </script>
 

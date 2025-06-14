@@ -1,13 +1,16 @@
 <script setup>
 import PlayerVolumeSlider from "@/modules/Player/components/PlayerVolumeSlider.vue";
 import { usePlayerStore } from "@/modules/Player/store/PlayerStore.js";
+import { useStoreAPI } from "@/shared/store/store-api.js";
 import { isDesktop } from "@/shared/helpers/useIsDesktop.js";
 import { storeToRefs } from "pinia";
-import {watch, nextTick} from "vue";
+import {watch, nextTick, onMounted} from "vue";
 import PlayerTrackProgress from "./PlayerTrackProgress.vue";
 import PlayerControls from "@/components/PlayerControls.vue";
 import PlayerTrackInfo from "@/components/PlayerTrackInfo.vue";
 
+
+const { loadPlaylistToPlayer } = useStoreAPI();
 
 const playerStore = usePlayerStore();
 const {
@@ -49,6 +52,10 @@ watch(currentTrack, () => {
     }
   });
 });
+
+onMounted(() => {
+  loadPlaylistToPlayer();
+})
 </script>
 
 <template>
@@ -62,8 +69,8 @@ watch(currentTrack, () => {
             :repeat-state="repeatStatus"
             :is-playing="isPlaying"
             :is-shuffle-active="shuffleStatus"
-            @nextTrack="playPrevTrack"
-            @prevTrack="playNextTrack"
+            @nextTrack="playNextTrack"
+            @prevTrack="playPrevTrack"
             @toggleRepeat="toggleRepeat"
             @toggleShuffle="toggleShuffle"
             @togglePlaying="togglePlaying"

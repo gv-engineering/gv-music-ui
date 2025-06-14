@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import {shuffleArray} from "@/shared/helpers/shuffleArray.js";
+import { shuffleArray } from "@/shared/helpers/shuffleArray.js";
 
 export const usePlayerStore = defineStore('playerStore', () => {
     // States
@@ -22,9 +22,11 @@ export const usePlayerStore = defineStore('playerStore', () => {
     Records the track selected by the user
     generates a track list depending on the shuffle state
      */
-    const uploadTrack = (track, tracks) => {
+    const uploadTrack = (track) => {
         currentTrack.value = track;
+    };
 
+    const uploadTracks = (tracks) => {
         trackList.value = tracks;
         if (shuffleStatus.value) {
             shuffleList();
@@ -32,7 +34,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         } else {
             tracksQueue.value = [...trackList.value];
         }
-    };
+    }
 
     /*
     Sets the volume,
@@ -228,6 +230,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         repeatStatus,
         shuffleStatus,
         uploadTrack,
+        uploadTracks,
         playPrevTrack,
         playTrack,
         playNextTrack,
