@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import {shuffleArray} from "@/shared/helpers/shuffleArray.js";
 
 export const usePlayerStore = defineStore('playerStore', () => {
     // States
@@ -101,7 +102,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
         currentTrack.value = nextTrack;
     };
 
-    // Manual play next track via btn in PlayerLegacy
+    // Manual play next track via btn in Player
     const playNextTrack = () => {
         // Validator. Checks if the track is selected and mounted in the DOM
         if (!currentTrack.value && !audioRef.value) {
@@ -173,7 +174,6 @@ export const usePlayerStore = defineStore('playerStore', () => {
     Updates the current playing time and track duration
     If the track is over performs a toggle
      */
-
     const updatePlayTime = (time) => {
         if (audioRef.value && !isNaN(audioRef.value.duration)) {
             currentPlayTime.value = time;
@@ -213,11 +213,7 @@ export const usePlayerStore = defineStore('playerStore', () => {
 
     // shuffle tracklist and input result in new array
     const shuffleList = () => {
-        shuffledTrackList.value = [...trackList.value];
-        for (let i = shuffledTrackList.value.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffledTrackList.value[i], shuffledTrackList.value[j]] = [shuffledTrackList.value[j], shuffledTrackList.value[i]];
-        }
+        shuffledTrackList.value = shuffleArray(trackList.value);
     };
 
     // Return actions and states

@@ -1,12 +1,12 @@
 <script setup>
 import Navbar from './components/Navbar.vue'
-import PlayerLegacy from "./modules/Player/components/PlayerLegacy.vue";
+import Player from "./modules/Player/components/Player.vue";
 </script>
 
 <template>
   <Navbar/>
   <router-view/>
-  <PlayerLegacy/>
+  <Player/>
 </template>
 
 
